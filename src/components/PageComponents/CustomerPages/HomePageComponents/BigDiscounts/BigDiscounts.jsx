@@ -24,7 +24,7 @@ const responsive = {
     slidesToSlide: 1, // optional, default to 1.
   },
 };
-const FlashDeals = () => {
+const BigDiscounts = () => {
   return (
     <div>
       <Box>
@@ -92,4 +92,4 @@ const FlashDeals = () => {
   );
 };
 
-export default FlashDeals;
+export default BigDiscounts;

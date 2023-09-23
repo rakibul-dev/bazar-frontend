@@ -1,14 +1,7 @@
 import { Box, Grid, Typography, Button } from "@mui/material";
 import { Swiper, SwiperSlide } from "swiper/react";
-import React, { useState } from "react";
-import {
-  Navigation,
-  Pagination,
-  Scrollbar,
-  A11y,
-  Controller,
-  Autoplay,
-} from "swiper/modules";
+
+import { Pagination, Autoplay } from "swiper/modules";
 // Import Swiper styles
 import "./AdBanner.css";
 import "swiper/css";
@@ -80,7 +73,7 @@ const AdBanner = () => {
               </Grid>
               <Grid item sm={8} md={5} width="95%">
                 <img
-                  src="https://bazaar.ui-lib.com/assets/images/products/nike-black.png"
+                  src="/public/images/watch.png"
                   alt=""
                   style={{ height: "100%", width: "100%" }}
                 />
@@ -119,7 +112,7 @@ const AdBanner = () => {
               </Grid>
               <Grid item sm={8} md={5} width="95%" height="100%">
                 <img
-                  src="https://bazaar.ui-lib.com/assets/images/products/nike-black.png"
+                  src="/public/images/watch.png"
                   alt=""
                   style={{ height: "100%", width: "100%" }}
                 />
