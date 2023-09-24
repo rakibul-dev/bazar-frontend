@@ -3,7 +3,7 @@ import React from "react";
 
 const ProductReview = () => {
   return (
-    <div>
+    <>
       <Box>
         <Box>
           <Stack
@@ -47,7 +47,7 @@ const ProductReview = () => {
           </Grid>
         </Box>
       </Box>
-    </div>
+    </>
   );
 };
 

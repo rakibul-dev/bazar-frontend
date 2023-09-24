@@ -1,13 +1,20 @@
-import { Box, Button, Grid, Stack, Typography, Tabs, Tab } from "@mui/material";
-import ProductDescription from "../../components/PageComponents/CustomerPages/ProductDetailsPage/ProductDescription";
-import ProductReview from "../../components/PageComponents/CustomerPages/ProductDetailsPage/ProductReview";
-import Rating from "@mui/material/Rating";
-import TabPanel from "@mui/lab/TabPanel";
-
+import React from "react";
 import PropTypes from "prop-types";
 
-import { useState } from "react";
-import React from "react";
+import {
+  Box,
+  Button,
+  Grid,
+  Stack,
+  Typography,
+  Tabs,
+  Tab,
+  Rating,
+} from "@mui/material";
+
+import ProductDescription from "../../components/PageComponents/CustomerPages/ProductDetailsPage/ProductDescription";
+import ProductReview from "../../components/PageComponents/CustomerPages/ProductDetailsPage/ProductReview";
+import LeaveComment from "../../components/PageComponents/CustomerPages/ProductDetailsPage/LeaveComment";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -156,6 +163,7 @@ const ProductDetails = () => {
             <ProductDescription />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
+            {/* Show Comments  */}
             <Box
               gap={2}
               sx={{
@@ -171,6 +179,9 @@ const ProductDetails = () => {
               <ProductReview />
               <ProductReview />
             </Box>
+
+            {/* Leave Comment section */}
+            <LeaveComment />
           </CustomTabPanel>
         </Box>
       </Box>
