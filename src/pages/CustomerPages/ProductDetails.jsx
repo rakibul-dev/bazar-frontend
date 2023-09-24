@@ -156,7 +156,21 @@ const ProductDetails = () => {
             <ProductDescription />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <ProductReview />
+            <Box
+              gap={2}
+              sx={{
+                display: "flex",
+
+                justifyContent: "flex-start",
+                flexDirection: "column",
+              }}
+            >
+              <ProductReview />
+              <ProductReview />
+              <ProductReview />
+              <ProductReview />
+              <ProductReview />
+            </Box>
           </CustomTabPanel>
         </Box>
       </Box>
