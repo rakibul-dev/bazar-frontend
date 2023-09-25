@@ -1,7 +1,8 @@
 import { Box, Grid, Typography, Button } from "@mui/material";
 import FlashOnIcon from "@mui/icons-material/FlashOn";
 
-import ProductCard from "../../../CommonPages/ProductCard/ProductCard";
+// import ProductCard from "../../../CommonPages/ProductCard/ProductCard";
+import ProductCard from "../../../../CommonComponents/ProductCard/ProductCard";
 import "./carousel.css";
 
 import Carousel from "react-multi-carousel";

@@ -18,7 +18,7 @@ const ProductReview = () => {
             </Box>
 
             <Box sx={{ width: "100%" }}>
-              <Typography variant="h6" fontWeight="bold">
+              <Typography variant="p" fontWeight="bold">
                 John doe
               </Typography>
               <Box
