@@ -4,19 +4,29 @@ import {
   Box,
   Grid,
   Typography,
-  Button,
   Stack,
-  IconButton,
   Rating,
   Chip,
   Paper,
   Fab,
+  Button,
 } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import ProductModalView from "../../PageComponents/CommonPages/ProductCard/ProductModalView";
 
 const ProductCard = () => {
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <Box>
@@ -24,13 +34,6 @@ const ProductCard = () => {
           <Grid item md={3}> */}
         <Box
           sx={{
-            // display: "flex",
-            // flexWrap: "wrap",
-            // "& > :not(style)": {
-            //   m: 1,
-            //   width: 128,
-            //   height: 128,
-            // },
             width: "100%",
             height: "100%",
           }}
@@ -106,13 +109,22 @@ const ProductCard = () => {
                       direction="column"
                     >
                       <Fab size="small" color="primary" aria-label="add">
-                        <DeleteIcon fontSize="small" />
+                        <AddIcon fontSize="small" />
                       </Fab>
                     </Stack>
                   </Box>
                 </Grid>
               </Grid>
             </Box>
+            <ProductModalView isOpen={open} close={handleClose} />
+            <Button
+              variant="outlined"
+              onClick={() => {
+                handleClickOpen();
+              }}
+            >
+              Open alert dialog
+            </Button>
           </Paper>
         </Box>
         {/* </Grid>

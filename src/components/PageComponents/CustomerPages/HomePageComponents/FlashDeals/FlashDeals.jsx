@@ -3,7 +3,7 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 
 // import ProductCard from "../../../CommonPages/ProductCard/ProductCard";
 import ProductCard from "../../../../CommonComponents/ProductCard/ProductCard";
-import "./carousel.css";
+
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
