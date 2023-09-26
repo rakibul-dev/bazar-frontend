@@ -7,7 +7,7 @@ import Rating from "@mui/material/Rating";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Stack from "@mui/material/Stack";
-
+import FavoriteIcon from "@mui/icons-material/Favorite";
 const ProductCard = () => {
   return (
     <div>

@@ -14,6 +14,8 @@ import {
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import ProductModalView from "../../PageComponents/CommonPages/ProductCard/ProductModalView";
 
 const ProductCard = () => {
@@ -30,8 +32,6 @@ const ProductCard = () => {
   return (
     <>
       <Box>
-        {/* <Grid container>
-          <Grid item md={3}> */}
         <Box
           sx={{
             width: "100%",
@@ -58,11 +58,16 @@ const ProductCard = () => {
                     justifyContent="center"
                     direction="column"
                   >
-                    <Fab size="small" color="primary" aria-label="add">
-                      <DeleteIcon fontSize="small" />
+                    <Fab
+                      size="small"
+                      color="primary"
+                      aria-label="add"
+                      onClick={() => handleClickOpen()}
+                    >
+                      <VisibilityIcon fontSize="small" />
                     </Fab>
                     <Fab size="small" color="primary" aria-label="add">
-                      <DeleteIcon fontSize="small" />
+                      <FavoriteIcon fontSize="small" />
                     </Fab>
                   </Stack>
                 </Box>
@@ -117,18 +122,8 @@ const ProductCard = () => {
               </Grid>
             </Box>
             <ProductModalView isOpen={open} close={handleClose} />
-            <Button
-              variant="outlined"
-              onClick={() => {
-                handleClickOpen();
-              }}
-            >
-              Open alert dialog
-            </Button>
           </Paper>
         </Box>
-        {/* </Grid>
-        </Grid> */}
       </Box>
     </>
   );

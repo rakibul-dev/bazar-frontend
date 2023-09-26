@@ -67,7 +67,6 @@ const ProductModalView = ({ isOpen, close }) => {
                     </Typography>
                   </Box>
                   <Box sx={{ my: 3 }}>
-                    {" "}
                     <Button variant="contained" size="medium">
                       Add To Cart
                     </Button>
