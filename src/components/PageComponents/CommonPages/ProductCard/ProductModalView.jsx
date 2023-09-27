@@ -7,7 +7,6 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Box, Grid, Rating, Typography } from "@mui/material";
 import Fab from "@mui/material/Fab";
-import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 
 const ProductModalView = ({ isOpen, close }) => {

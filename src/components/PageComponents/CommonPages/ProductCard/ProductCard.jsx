@@ -1,28 +1,22 @@
-import { Box, Grid, Typography, Button } from "@mui/material";
-import React from "react";
-import Fab from "@mui/material/Fab";
-import Paper from "@mui/material/Paper";
-import Chip from "@mui/material/Chip";
-import Rating from "@mui/material/Rating";
-import IconButton from "@mui/material/IconButton";
+import {
+  Box,
+  Grid,
+  Typography,
+  Chip,
+  Paper,
+  Stack,
+  Rating,
+  Fab,
+} from "@mui/material";
+
 import DeleteIcon from "@mui/icons-material/Delete";
-import Stack from "@mui/material/Stack";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+
 const ProductCard = () => {
   return (
     <div>
       <Box>
-        {/* <Grid container>
-          <Grid item md={3}> */}
         <Box
           sx={{
-            // display: "flex",
-            // flexWrap: "wrap",
-            // "& > :not(style)": {
-            //   m: 1,
-            //   width: 128,
-            //   height: 128,
-            // },
             width: "100%",
             height: "100%",
           }}
@@ -72,17 +66,6 @@ const ProductCard = () => {
                       justifyContent="center"
                       direction="column"
                     >
-                      {/* <IconButton aria-label="delete" size="small">
-                        <DeleteIcon fontSize="small" color="primary" />
-                      </IconButton> */}
-
-                      {/* <IconButton
-                        aria-label="delete"
-                        size="small"
-                        variant="contained"
-                      >
-                        <DeleteIcon fontSize="small" color="primary" />
-                      </IconButton> */}
                       <Fab size="small" color="primary" aria-label="add">
                         <DeleteIcon />
                       </Fab>
@@ -93,8 +76,6 @@ const ProductCard = () => {
             </Box>
           </Paper>
         </Box>
-        {/* </Grid>
-        </Grid> */}
       </Box>
     </div>
   );
