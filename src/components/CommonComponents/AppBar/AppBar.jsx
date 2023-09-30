@@ -79,9 +79,9 @@ const CustomerAppBar = () => {
                   </Box>
                 </Box>
               </Grid>
-              <Grid item md={1} sm={1}>
+              <Grid item md={1} xs={2}>
                 <Box display="flex" justifyContent="center" alignItems="center">
-                  <Stack spacing={2} direction="row">
+                  <Stack direction="row" justifyContent="center">
                     <IconButton size="large">
                       <PersonIcon />
                     </IconButton>
