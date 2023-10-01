@@ -9,10 +9,8 @@ import {
   Chip,
   Paper,
   Fab,
-  Button,
 } from "@mui/material";
 
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VisibilityIcon from "@mui/icons-material/Visibility";
@@ -42,43 +40,46 @@ const ProductCard = () => {
         >
           <Paper elevation={5}>
             <Box>
-              {show ? (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    display: "flex",
-                    justifyContent: "end",
-                    top: "25px",
-                    right: "25px",
-                  }}
+              <Box>
+                <Stack
+                  //   spacing={1}
+                  alignItems="center"
+                  justifyContent="space-between"
+                  direction="row"
+                  position="relative"
                 >
-                  <Stack
-                    spacing={1}
-                    alignItems="center"
-                    justifyContent="center"
-                    direction="column"
-                  >
-                    <Fab
-                      size="small"
-                      color="primary"
-                      aria-label="add"
-                      onClick={() => handleClickOpen()}
+                  <Chip
+                    label="25% off"
+                    size="small"
+                    color="primary"
+                    style={{ margin: "10px" }}
+                  />
+                  {show ? (
+                    <Stack
+                      alignItems="center"
+                      justifyContent="space-between"
+                      direction="column"
+                      position="absolute"
+                      right="10px"
+                      top="10px"
+                      gap={1}
                     >
-                      <VisibilityIcon fontSize="small" />
-                    </Fab>
-                    <Fab size="small" color="primary" aria-label="add">
-                      <FavoriteIcon fontSize="small" />
-                    </Fab>
-                  </Stack>
-                </Box>
-              ) : null}
+                      <Fab
+                        size="small"
+                        color="primary"
+                        aria-label="add"
+                        // onClick={() => handleClickOpen()}
+                      >
+                        <FavoriteIcon fontSize="small" />
+                      </Fab>
+                      <Fab size="small" color="primary" aria-label="add">
+                        <FavoriteIcon fontSize="small" />
+                      </Fab>
+                    </Stack>
+                  ) : null}
+                </Stack>
+              </Box>
 
-              <Chip
-                label="25% off"
-                size="small"
-                color="primary"
-                style={{ margin: "10px" }}
-              />
               <Box
                 sx={{
                   display: "flex",
@@ -87,7 +88,7 @@ const ProductCard = () => {
                 }}
               >
                 <img
-                  src="public/images/watch.png"
+                  src="/images/watch.png"
                   alt=""
                   style={{ height: "40%", width: "90%" }}
                 />
