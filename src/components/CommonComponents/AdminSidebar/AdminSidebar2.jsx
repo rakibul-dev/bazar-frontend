@@ -1,60 +1,32 @@
 import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
-import Box from "@mui/material/Box";
-import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
-import Divider from "@mui/material/Divider";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import ArrowRight from "@mui/icons-material/ArrowRight";
-import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
-import Home from "@mui/icons-material/Home";
-import Settings from "@mui/icons-material/Settings";
-import People from "@mui/icons-material/People";
-import PermMedia from "@mui/icons-material/PermMedia";
-import Dns from "@mui/icons-material/Dns";
-import Public from "@mui/icons-material/Public";
-
-import ListSubheader from "@mui/material/ListSubheader";
-
-import Collapse from "@mui/material/Collapse";
+import {
+  Collapse,
+  Paper,
+  ListItemText,
+  ListItemIcon,
+  ListItemButton,
+  List,
+  Divider,
+  Box,
+} from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
-import SendIcon from "@mui/icons-material/Send";
-import ExpandLess from "@mui/icons-material/ExpandLess";
+
+import { ExpandLess } from "@mui/icons-material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
 
-const data = [
-  { icon: <People />, label: "Authentication" },
-  { icon: <Dns />, label: "Database" },
-  { icon: <PermMedia />, label: "Storage" },
-  { icon: <Public />, label: "Hosting" },
-];
-
-const FireNav = styled(List)({
-  "& .MuiListItemButton-root": {
-    paddingLeft: 24,
-    paddingRight: 24,
-  },
-  "& .MuiListItemIcon-root": {
-    minWidth: 0,
-    marginRight: 16,
-  },
-  "& .MuiSvgIcon-root": {
-    fontSize: 20,
-  },
-});
 const AdminSidebar2 = () => {
+  const naviagate = useNavigate();
+  const { pathname } = useLocation();
   const [open, setOpen] = React.useState(true);
   const [items, setItems] = useState([
-    { name: "grettings", nested: [{ name: "hello" }], isOpen: false },
-    { name: "grettings", nested: [{ name: "hello" }], isOpen: false },
+    {
+      name: "dashboard",
+      nested: [{ name: "hello", link: "/admin/dashboard" }],
+      isOpen: false,
+    },
   ]);
 
   const handleClick = (index) => {
@@ -88,26 +60,10 @@ const AdminSidebar2 = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <ThemeProvider
-        theme={createTheme({
-          components: {
-            MuiListItemButton: {
-              defaultProps: {
-                disableTouchRipple: true,
-              },
-            },
-          },
-          palette: {
-            mode: "dark",
-            primary: { main: "rgb(102, 157, 246)" },
-            background: { paper: "rgb(5, 30, 52)" },
-          },
-        })}
-      >
-        <Paper elevation={0} sx={{ maxWidth: 256 }}>
-          <FireNav component="nav" disablePadding>
-            <ListItemButton component="a" href="#customized-list">
+    <Box sx={{ display: "flex", width: "100%" }}>
+      <Paper elevation={0} sx={{ width: "100%" }}>
+        <List component="nav" sx={{ width: "100%" }}>
+          {/* <ListItemButton component="a" href="#customized-list">
               <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
               <ListItemText
                 sx={{ my: 0 }}
@@ -118,38 +74,65 @@ const AdminSidebar2 = () => {
                   letterSpacing: 0,
                 }}
               />
-            </ListItemButton>
-            <Divider />
-            <List
-              sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-            >
-              {items.map((menu, index) => (
-                <Box key={Math.random()}>
-                  <ListItemButton onClick={() => handleClick(index)}>
-                    <ListItemIcon>
-                      <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Inbox" />
-                    {menu.isOpen ? <ExpandLess /> : <ExpandMore />}
-                  </ListItemButton>
-                  <Collapse in={menu.isOpen} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      <ListItemButton sx={{ pl: 4 }}>
+            </ListItemButton> */}
+          <Divider />
+          <List
+            sx={{ width: "100%", bgcolor: "background.paper" }}
+            component="nav"
+            aria-labelledby="nested-list-subheader"
+          >
+            {items.map((menu, index) => (
+              <Box key={Math.random()} sx={{ width: "100%" }}>
+                <ListItemButton
+                  sx={{ width: "100%" }}
+                  onClick={() => {
+                    //   handleClick(index);
+                    if (menu.nested.length) {
+                      handleClick(index);
+                    } else {
+                      naviagate("/admin/dashboard");
+                    }
+                  }}
+                  alignItems="center"
+                  disableRipple
+                >
+                  <ListItemIcon>
+                    <InboxIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={menu.name} />
+
+                  {menu.nested.length ? (
+                    menu.isOpen ? (
+                      <ExpandLess />
+                    ) : (
+                      <ExpandMore />
+                    )
+                  ) : null}
+                </ListItemButton>
+                <Collapse in={menu.isOpen} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {menu.nested.map((item) => (
+                      <ListItemButton
+                        sx={{ pl: 4 }}
+                        key={Math.random()}
+                        onClick={() => {
+                          naviagate(item.link);
+                        }}
+                        selected={item.link === pathname}
+                      >
                         <ListItemIcon>
                           <StarBorder />
                         </ListItemIcon>
-                        <ListItemText primary="Starred" />
+                        <ListItemText primary={item.name} />
                       </ListItemButton>
-                    </List>
-                  </Collapse>
-                </Box>
-              ))}
-            </List>
-          </FireNav>
-        </Paper>
-      </ThemeProvider>
+                    ))}
+                  </List>
+                </Collapse>
+              </Box>
+            ))}
+          </List>
+        </List>
+      </Paper>
     </Box>
   );
 };
