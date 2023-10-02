@@ -19,6 +19,7 @@
     "prop-types": "^15.8.1",
     "rc-drawer": "^6.5.2",
     "react": "^18.2.0",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^18.2.0",
     "react-modern-drawer": "^1.2.2",
     "react-multi-carousel": "^2.8.4",

@@ -17,6 +17,17 @@ import CustomerWishlistPage from "../pages/CustomerPages/Dashboard/CustomerWishl
 import CustomerProfilePage from "../pages/CustomerPages/Dashboard/CustomerProfilePage";
 import CustomerAddressesPage from "../pages/CustomerPages/Dashboard/CustomerAddressesPage";
 
+// Admin Pages
+import AdminLayout from "../layouts/AdminLayout";
+import AdminBrandsPage from "../pages/AdminPages/AdminBrandsPage";
+import AdminCategoryPage from "../pages/AdminPages/AdminCategoryPage";
+import AdminCustomersPage from "../pages/AdminPages/AdminCustomersPage";
+import AdminDashboard from "../pages/AdminPages/AdminDashboard";
+import AdminOrdersPage from "../pages/AdminPages/AdminOrdersPage";
+import AdminProductsPage from "../pages/AdminPages/AdminProductsPage";
+import AdminRefundsPage from "../pages/AdminPages/AdminRefundsPage";
+import AdminSellersPage from "../pages/AdminPages/AdminSellersPage";
+
 const Router = createBrowserRouter([
   // Customer
   {
@@ -42,6 +53,45 @@ const Router = createBrowserRouter([
       { path: "wishlist", element: <CustomerWishlistPage /> },
       { path: "profile", element: <CustomerProfilePage /> },
       { path: "address", element: <CustomerAddressesPage /> },
+    ],
+  },
+  //   Admin Routes
+  {
+    path: "/admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "brands",
+        element: <AdminBrandsPage />,
+      },
+      {
+        path: "product/categories",
+        element: <AdminCategoryPage />,
+      },
+      {
+        path: "customers",
+        element: <AdminCustomersPage />,
+      },
+      {
+        path: "dashboard",
+        element: <AdminDashboard />,
+      },
+      {
+        path: "orders",
+        element: <AdminOrdersPage />,
+      },
+      {
+        path: "products",
+        element: <AdminProductsPage />,
+      },
+      {
+        path: "refunds",
+        element: <AdminRefundsPage />,
+      },
+      {
+        path: "vendors",
+        element: <AdminSellersPage />,
+      },
     ],
   },
   //   Errors pages
