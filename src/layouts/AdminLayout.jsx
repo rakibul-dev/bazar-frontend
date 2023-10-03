@@ -5,7 +5,6 @@ import { Outlet } from "react-router-dom";
 import AdminSidebar from "../components/CommonComponents/AdminSidebar/AdminSidebar";
 import AdminAppbar from "../components/CommonComponents/AdminAppbar/AdminAppbar";
 import { Scrollbars } from "react-custom-scrollbars";
-import AdminSidebar2 from "../components/CommonComponents/AdminSidebar/AdminSidebar2";
 
 const AdminLayout = () => {
   return (
@@ -17,7 +16,7 @@ const AdminLayout = () => {
             <Box style={{ height: "100vh" }}>
               <Box height="9%">hello</Box>
               <Scrollbars autoHide>
-                <AdminSidebar2 />
+                <AdminSidebar />
               </Scrollbars>
             </Box>
 
