@@ -55,6 +55,9 @@ let theme = createTheme({
       xl: 1536,
     },
   },
+  typography: {
+    fontFamily: `"Roboto", "Helvetica", "Arial", sans-serif`,
+  },
   palette: {
     // mode: "dark",
     background: {
