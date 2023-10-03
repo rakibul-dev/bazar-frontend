@@ -25,7 +25,9 @@ const AdminLayout = () => {
           <Grid item xs={12} md={10}>
             <AdminAppbar />
             <Container>
-              <Outlet />
+              <Box marginTop="30px">
+                <Outlet />
+              </Box>
             </Container>
           </Grid>
         </Grid>

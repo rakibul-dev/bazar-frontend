@@ -68,7 +68,7 @@ const ProductCard = () => {
                         size="small"
                         color="primary"
                         aria-label="add"
-                        // onClick={() => handleClickOpen()}
+                        onClick={() => handleClickOpen()}
                       >
                         <FavoriteIcon fontSize="small" />
                       </Fab>
