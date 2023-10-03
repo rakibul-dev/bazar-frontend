@@ -85,7 +85,7 @@ const Router = createBrowserRouter([
         element: <AdminProductsPage />,
       },
       {
-        path: "refunds",
+        path: "product/refund-request",
         element: <AdminRefundsPage />,
       },
       {
