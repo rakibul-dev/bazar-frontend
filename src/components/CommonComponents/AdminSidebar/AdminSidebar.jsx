@@ -12,7 +12,6 @@ import {
   Box,
 } from "@mui/material";
 
-
 import { ExpandLess } from "@mui/icons-material";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import StarBorder from "@mui/icons-material/StarBorder";
@@ -100,11 +99,12 @@ const AdminSidebar = () => {
 
   const handleClick = (index) => {
     // console.log(index);
-    setOpen(!open);
+    // setOpen(!open);
 
     //   items[index].isOpen = ;
 
     const isOpen = items[index].isOpen;
+
     if (isOpen) {
       console.log("yes it is ", isOpen);
       const newArray = [...items];
@@ -119,19 +119,22 @@ const AdminSidebar = () => {
 
       // Update the value property of the selected object
       newArray[index].isOpen = true;
+      console.log(newArray[index].isOpen);
 
       // Update the state with the modified array
       setItems(newArray);
-      console.log("no its ", isOpen);
     }
 
     // setItems(!menu.isOpen);
   };
 
-  const closeAllMenu = () => {
+  const closeAllMenu = (menuIndex) => {
     items.forEach((item, index) => {
-      console.log({ item, index });
-      item.isOpen = false;
+      items[index].isOpen = false;
+
+      if (items[menuIndex]) {
+        items[menuIndex].isOpen = true;
+      }
     });
   };
 
@@ -165,9 +168,10 @@ const AdminSidebar = () => {
                     //   handleClick(index);
                     if (menu.nested.length) {
                       handleClick(index);
+                      //   closeAllMenu();
                     } else {
                       naviagate(menu.link);
-                      closeAllMenu();
+                      closeAllMenu(index, menu);
                     }
                   }}
                   alignItems="center"
@@ -193,6 +197,7 @@ const AdminSidebar = () => {
                         key={Math.random()}
                         onClick={() => {
                           naviagate(item.link);
+                          closeAllMenu(index);
                         }}
                         selected={item.link === pathname}
                       >
