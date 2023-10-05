@@ -27,7 +27,7 @@ import CancelScheduleSendIcon from "@mui/icons-material/CancelScheduleSend";
 const AdminSidebar = () => {
   const naviagate = useNavigate();
   const { pathname } = useLocation();
-  const [open, setOpen] = React.useState(true);
+
   const [items, setItems] = useState([
     //   Dashboard
     {
@@ -140,9 +140,9 @@ const AdminSidebar = () => {
 
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
-      <Paper elevation={0} sx={{ width: "100%" }}>
-        <List component="nav" sx={{ width: "100%" }}>
-          {/* <ListItemButton component="a" href="#customized-list">
+      {/* <Paper elevation={0} sx={{ width: "100%" }}> */}
+      <List component="nav" sx={{ width: "100%", backgroundColor: "#2b3445" }}>
+        {/* <ListItemButton component="a" href="#customized-list">
               <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
               <ListItemText
                 sx={{ my: 0 }}
@@ -154,66 +154,66 @@ const AdminSidebar = () => {
                 }}
               />
             </ListItemButton> */}
-          <Divider />
-          <List
-            sx={{ width: "100%", bgcolor: "background.paper" }}
-            component="nav"
-            aria-labelledby="nested-list-subheader"
-          >
-            {items.map((menu, index) => (
-              <Box key={Math.random()} sx={{ width: "100%" }}>
-                <ListItemButton
-                  sx={{ width: "100%" }}
-                  onClick={() => {
-                    //   handleClick(index);
-                    if (menu.nested.length) {
-                      handleClick(index);
-                      //   closeAllMenu();
-                    } else {
-                      naviagate(menu.link);
-                      closeAllMenu(index, menu);
-                    }
-                  }}
-                  alignItems="center"
-                  disableRipple
-                  selected={menu.link ? pathname === menu.link : false}
-                >
-                  <ListItemIcon>{menu.icon}</ListItemIcon>
-                  <ListItemText primary={menu.name} />
+        <Divider />
+        <List
+          sx={{ width: "100%", bgcolor: "primary" }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          {items.map((menu, index) => (
+            <Box key={Math.random()} sx={{ width: "100%" }}>
+              <ListItemButton
+                sx={{ width: "100%" }}
+                onClick={() => {
+                  //   handleClick(index);
+                  if (menu.nested.length) {
+                    handleClick(index);
+                    //   closeAllMenu();
+                  } else {
+                    naviagate(menu.link);
+                    closeAllMenu(index, menu);
+                  }
+                }}
+                alignItems="center"
+                disableRipple
+                selected={menu.link ? pathname === menu.link : false}
+              >
+                <ListItemIcon>{menu.icon}</ListItemIcon>
+                <ListItemText primary={menu.name} />
 
-                  {menu.nested.length ? (
-                    menu.isOpen ? (
-                      <ExpandLess />
-                    ) : (
-                      <ExpandMore />
-                    )
-                  ) : null}
-                </ListItemButton>
-                <Collapse in={menu.isOpen} timeout="auto" unmountOnExit>
-                  <List component="div" disablePadding>
-                    {menu.nested.map((item) => (
-                      <ListItemButton
-                        sx={{ pl: 4 }}
-                        key={Math.random()}
-                        onClick={() => {
-                          naviagate(item.link);
-                          closeAllMenu(index);
-                        }}
-                        selected={item.link === pathname}
-                      >
-                        <ListItemIcon>
-                          <StarBorder />
-                        </ListItemIcon>
-                        <ListItemText primary={item.name} />
-                      </ListItemButton>
-                    ))}
-                  </List>
-                </Collapse>
-              </Box>
-            ))}
-          </List>
+                {menu.nested.length ? (
+                  menu.isOpen ? (
+                    <ExpandLess />
+                  ) : (
+                    <ExpandMore />
+                  )
+                ) : null}
+              </ListItemButton>
+              <Collapse in={menu.isOpen} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {menu.nested.map((item) => (
+                    <ListItemButton
+                      sx={{ pl: 4 }}
+                      key={Math.random()}
+                      onClick={() => {
+                        naviagate(item.link);
+                        closeAllMenu(index);
+                      }}
+                      selected={item.link === pathname}
+                    >
+                      <ListItemIcon>
+                        <StarBorder />
+                      </ListItemIcon>
+                      <ListItemText primary={item.name} />
+                    </ListItemButton>
+                  ))}
+                </List>
+              </Collapse>
+            </Box>
+          ))}
         </List>
-      </Paper>
+      </List>
+      {/* </Paper> */}
     </Box>
   );
 };
