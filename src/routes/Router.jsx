@@ -27,6 +27,10 @@ import AdminOrdersPage from "../pages/AdminPages/AdminOrdersPage";
 import AdminProductsPage from "../pages/AdminPages/AdminProductsPage";
 import AdminRefundsPage from "../pages/AdminPages/AdminRefundsPage";
 import AdminSellersPage from "../pages/AdminPages/AdminSellersPage";
+import AdminProductCreatePage from "../pages/AdminPages/AdminProductCreatePage";
+import AdminProductReview from "../pages/AdminPages/AdminProductReview";
+import AdminCategoryCreatePage from "../pages/AdminPages/AdminCategoryCreatePage";
+import AdminBrandCreatePage from "../pages/AdminPages/AdminBrandCreatePage";
 
 const Router = createBrowserRouter([
   // Customer
@@ -87,6 +91,22 @@ const Router = createBrowserRouter([
       {
         path: "product/refund-request",
         element: <AdminRefundsPage />,
+      },
+      {
+        path: "product/create",
+        element: <AdminProductCreatePage />,
+      },
+      {
+        path: "product/reviews",
+        element: <AdminProductReview />,
+      },
+      {
+        path: "category/create",
+        element: <AdminCategoryCreatePage />,
+      },
+      {
+        path: "brand/create",
+        element: <AdminBrandCreatePage />,
       },
       {
         path: "vendors",
