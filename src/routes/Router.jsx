@@ -33,6 +33,10 @@ import AdminCategoryCreatePage from "../pages/AdminPages/Category/AdminCategoryC
 import AdminBrandCreatePage from "../pages/AdminPages/Brand/AdminBrandCreatePage";
 import AdminOrderDetailsPage from "../pages/AdminPages/Orders/AdminOrderDetailsPage";
 
+// Auth pages
+import CustomerLoginPage from "../pages/AuthPages/CustomerLoginPage";
+import CustomerRegisterPage from "../pages/AuthPages/CustomerRegisterPage";
+
 const Router = createBrowserRouter([
   // Customer
   {
@@ -122,6 +126,15 @@ const Router = createBrowserRouter([
         element: <AdminSellersPage />,
       },
     ],
+  },
+  //   Auth
+  {
+    path: "/customer/login",
+    element: <CustomerLoginPage />,
+  },
+  {
+    path: "/customer/register",
+    element: <CustomerRegisterPage />,
   },
   //   Errors pages
   {
