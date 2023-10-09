@@ -1,7 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { getCategories } from "../../../Redux/Slices/productCategorySlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   Box,
@@ -15,13 +17,21 @@ import {
   FormControlLabel,
 } from "@mui/material";
 const AdminCategoryCreatePage = () => {
+  const dispatch = useDispatch();
   const [categoryImage, setCategoryImage] = useState(null);
+  const categories = useSelector(
+    (state) => state.productCategorySlice.categories
+  );
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
 
   const onSubmit = async (data) => {
     // console.log(data);
@@ -56,24 +66,7 @@ const AdminCategoryCreatePage = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
-  const currencies = [
-    {
-      value: "USD",
-      label: "$",
-    },
-    {
-      value: "EUR",
-      label: "€",
-    },
-    {
-      value: "BTC",
-      label: "฿",
-    },
-    {
-      value: "JPY",
-      label: "¥",
-    },
-  ];
+
   return (
     <>
       {/* <img src="https://bazar-ghat.s3.amazonaws.com/1357.jpg" alt="aws s3" /> */}
@@ -111,17 +104,19 @@ const AdminCategoryCreatePage = () => {
                 {...register("parent")}
                 name="parent"
               >
-                {currencies.map((option) => (
-                  <MenuItem
-                    key={option.value}
-                    value={option.value}
-                    onClick={() => {
-                      console.log(option);
-                    }}
-                  >
-                    {option.label}
-                  </MenuItem>
-                ))}
+                {categories
+                  ? categories.map((option) => (
+                      <MenuItem
+                        key={option.id}
+                        value={option.name}
+                        onClick={() => {
+                          console.log(option);
+                        }}
+                      >
+                        {option.name}
+                      </MenuItem>
+                    ))
+                  : null}
               </TextField>
             </Grid>
 

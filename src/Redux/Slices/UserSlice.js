@@ -3,13 +3,18 @@ import postReq from "../AxiosHelpers";
 import axios from "axios";
 
 const initialState = {
-  user: { name: "haha" },
+  user: {},
 };
 
 // First, create the thunk
-const getUser = createAsyncThunk("user/get", async () => {
-  const response = await postReq("/auth/login", {});
-  return response.data;
+export const loginUser = createAsyncThunk("user/get", async (userInfo) => {
+  const res = await axios
+    .post("http://localhost:5000/auth/login", userInfo, {
+      withCredentials: true,
+    })
+    .then((res) => res)
+    .catch((err) => console.log({ err }));
+  return res.data;
 });
 
 export const userSlice = createSlice({
@@ -17,13 +22,10 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUser.fulfilled, (state, action) => {
-      state.user = action.payload.data;
+    builder.addCase(loginUser.fulfilled, (state, action) => {
+      state.user = action.payload;
     });
   },
 });
-
-// Action creators are generated for each case reducer function
-export const {} = userSlice.actions;
 
 export default userSlice.reducer;

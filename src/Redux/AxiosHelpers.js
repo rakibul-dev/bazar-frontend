@@ -11,14 +11,15 @@ const getData = async (url, body) => {
   return data;
 };
 
-const postReq = async (url, body, header) => {
-  const data = await axios
-    .post(api_root + url, body, {
-      withCredentials: true,
-    })
-    .then((res) => res)
-    .catch((err) => console.log({ err }));
-  return data;
+const postReq = (url, body, header) => {
+  window.alert("hited");
+  //   const data = await axios
+  //     .post(api_root + url, body, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => res)
+  //     .catch((err) => console.log({ err }));
+  //   return data;
 };
 
 export default { getData, postReq };
