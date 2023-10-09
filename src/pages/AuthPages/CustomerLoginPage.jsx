@@ -1,7 +1,7 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser } from "../../Redux/Slices/UserSlice";
+import { loginUser } from "../../Redux/Slices/UserSlice";
 import { useNavigate } from "react-router-dom";
 
 const CustomerLoginPage = () => {
@@ -15,7 +15,7 @@ const CustomerLoginPage = () => {
 
   const handleLogin = async () => {
     try {
-      dispatch(getUser({ username: userName, password })).then(() => {
+      dispatch(loginUser({ username: userName, password })).then(() => {
         if (user.role == "admin") {
           navigate("/");
         } else {
@@ -27,6 +27,7 @@ const CustomerLoginPage = () => {
       console.log(error);
     }
   };
+
   return (
     <>
       <Box
