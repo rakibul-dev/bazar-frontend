@@ -67,7 +67,7 @@ let theme = createTheme({
       main: "#d23f57ff",
     },
   },
-  shadows: ["none"],
+  //   shadows: ["none"],
 
   components,
 });
