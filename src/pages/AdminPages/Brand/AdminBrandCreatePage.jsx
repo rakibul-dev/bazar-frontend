@@ -1,5 +1,7 @@
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
+import { useForm } from "react-hook-form";
 
 import {
   Box,
@@ -11,15 +13,48 @@ import {
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
+import { createBrand } from "../../../Redux/Slices/brandSlice";
 
 const AdminBrandCreatePage = () => {
+  const dispatch = useDispatch();
+  const [brandImage, selectBrandImage] = useState(null);
+
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    console.log({ acceptedFiles });
+    selectBrandImage(acceptedFiles[0]);
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+    },
+  });
+
+  useEffect(() => {}, []);
+
+  const onSubmit = async (data) => {
+    // console.log(data);
+    const { name } = data;
+    const formData = new FormData();
+    formData.append("brand-image", brandImage);
+    formData.append("name", name);
+
+    // data.categoryImage = categoryImage;
+
+    dispatch(createBrand(formData));
+    reset();
+  };
+
+  console.log(watch("example"));
 
   return (
     <>
@@ -40,8 +75,9 @@ const AdminBrandCreatePage = () => {
                   id="outlined-password-input"
                   label="Name"
                   type="text"
-                  autoComplete="current-password"
                   fullWidth
+                  {...register("name")}
+                  name="name"
                 />
               </Grid>
 
@@ -96,18 +132,19 @@ const AdminBrandCreatePage = () => {
                   </div>
                 </Box>
               </Grid>
-              <Grid item md={12}>
+              {/* <Grid item md={12}>
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Label"
                   onChange={(e) => console.log(e.target.value)}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item md={12}>
                 <Button
                   variant="contained"
                   size="medium"
                   sx={{ marginTop: "15px" }}
+                  onClick={handleSubmit(onSubmit)}
                 >
                   Save category
                 </Button>
