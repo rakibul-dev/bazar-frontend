@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import postReq from "../AxiosHelpers";
 import axios from "axios";
 
 const initialState = {
