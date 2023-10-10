@@ -26,8 +26,13 @@ const AdminCategoryCreatePage = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      name: "",
+    },
+  });
 
   useEffect(() => {
     dispatch(getCategories());
@@ -53,6 +58,7 @@ const AdminCategoryCreatePage = () => {
         withCredentials: true,
       }
     );
+    reset();
 
     console.log({ response });
   };
