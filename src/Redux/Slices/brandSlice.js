@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+const baseUrl = import.meta.env.VITE_BASE_URL;
 import axios from "axios";
 
 const initialState = {
@@ -6,12 +7,14 @@ const initialState = {
   pagination: {},
 };
 
-// First, create the thunk
+
 export const getBrands = createAsyncThunk("brands/get", async () => {
   const res = await axios
-    .get("http://localhost:5000/brands")
+    // .get(`${baseUrl}` + "/products")
+    .get(`${baseUrl}/brands`, { withCredentials: true })
     .then((res) => res)
     .catch((err) => console.log({ err }));
+
   return res.data;
 });
 
@@ -19,7 +22,7 @@ export const getFilterdBrands = createAsyncThunk(
   "brands_filterd/get",
   async (page, status) => {
     const res = await axios
-      .get(`http://localhost:5000/brands?page=${page}&status=${status}`)
+      .get(`${baseUrl}/brands?page=${page}&status=${status}`)
       .then((res) => res)
       .catch((err) => console.log({ err }));
     return res.data;
@@ -31,7 +34,7 @@ export const deleteBrand = createAsyncThunk(
   async (brandId) => {
     const res = await axios
       .delete(
-        `http://localhost:5000/brands/${brandId}`,
+        `${baseUrl}/brands/${brandId}`,
 
         { withCredentials: true }
       )
