@@ -2,6 +2,7 @@ import {
   Box,
   Chip,
   Switch,
+  Button,
   Paper,
   TableRow,
   TableHead,
@@ -12,23 +13,40 @@ import {
   Fab,
   Typography,
   Avatar,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 
-import { getCategories } from "../../../Redux/Slices/productCategorySlice";
+import AddIcon from "@mui/icons-material/Add";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-const rows = [
-  {
-    name: "Rakib",
-    phone: "0171828****1",
-    ordersCount: 10,
-    email: "mdrakibul.dev@gmail.com",
-  },
-];
+import {
+  getCategories,
+  deleteCategory,
+} from "../../../Redux/Slices/productCategorySlice";
 
 const AdminCategoryPage = () => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [selectedForDelete, setSelectedForDelete] = useState();
+
+  const handleClickOpen = (category) => {
+    console.log(category);
+    setOpen(true);
+    setSelectedForDelete(category);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleCategoryDelete = () => {
+    dispatch(deleteCategory(selectedForDelete._id));
+    setOpen(false);
+  };
   const { categories } = useSelector((state) => state.productCategorySlice);
   useEffect(() => {
     dispatch(getCategories());
@@ -83,6 +101,9 @@ const AdminCategoryPage = () => {
                       aria-label="add"
                       disableRipple
                       disableFocusRipple
+                      onClick={() => {
+                        handleClickOpen(category);
+                      }}
                     >
                       <AddIcon />
                     </Fab>
@@ -93,6 +114,30 @@ const AdminCategoryPage = () => {
           </Table>
         </TableContainer>
       </Box>
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Use Google's location service?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Let Google help apps determine location. This means sending
+              anonymous location data to Google, even when no apps are running.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Disagree</Button>
+            <Button onClick={handleCategoryDelete} autoFocus>
+              Delete category
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </>
   );
 };
