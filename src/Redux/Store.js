@@ -12,7 +12,7 @@ const store = configureStore({
     brandSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-  devTools: appStage !== "prod",
+  devTools: appStage !== "PROD",
 });
 
 export default store;
