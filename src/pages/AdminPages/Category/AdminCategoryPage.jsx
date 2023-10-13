@@ -26,12 +26,14 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getCategories,
   deleteCategory,
+  featuredCategoryStatusUpdate,
 } from "../../../Redux/Slices/productCategorySlice";
 
 const AdminCategoryPage = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [selectedForDelete, setSelectedForDelete] = useState();
+  const { categories } = useSelector((state) => state.productCategorySlice);
 
   const handleClickOpen = (category) => {
     console.log(category);
@@ -47,7 +49,10 @@ const AdminCategoryPage = () => {
     dispatch(deleteCategory(selectedForDelete._id));
     setOpen(false);
   };
-  const { categories } = useSelector((state) => state.productCategorySlice);
+
+  const handleFeaturedCategory = (id) => {
+    dispatch(featuredCategoryStatusUpdate(id));
+  };
   useEffect(() => {
     dispatch(getCategories());
   }, []);
@@ -83,16 +88,14 @@ const AdminCategoryPage = () => {
                       variant="rounded"
                       //   sx={{ width: 50, height: 50 }}
                     />
-                    {/* <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUFxLcXGTWXaindZOgmsRyenoMTwSHcZ7Qf_8eUqqvxjZaGNo-4RhGBozJqS5KfbX75bI&usqp=CAU"
-                      alt=""
-                      height="35px"
-                      width="80px"
-                    /> */}
                   </TableCell>
 
                   <TableCell align="left">
-                    <Switch size="small" />
+                    <Switch
+                      size="small"
+                      checked={category.featured}
+                      onChange={() => handleFeaturedCategory(category._id)}
+                    />
                   </TableCell>
                   <TableCell align="center">
                     <Fab

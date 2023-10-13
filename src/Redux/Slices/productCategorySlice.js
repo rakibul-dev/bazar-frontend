@@ -49,6 +49,21 @@ export const deleteCategory = createAsyncThunk(
   }
 );
 
+export const featuredCategoryStatusUpdate = createAsyncThunk(
+  "product-categories/featured/update",
+  async (id) => {
+    const res = await axios
+      .put(
+        `${baseUrl}/categories/featured/${id}`,
+        {},
+        { withCredentials: true }
+      )
+      .then((res) => res)
+      .catch((err) => console.log({ err }));
+    return res.data;
+  }
+);
+
 export const productCategorySlice = createSlice({
   name: "product-category",
   initialState,
@@ -56,6 +71,12 @@ export const productCategorySlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getCategories.fulfilled, (state, action) => {
       state.categories = action.payload;
+    });
+    builder.addCase(featuredCategoryStatusUpdate.fulfilled, (state, action) => {
+      const upd_obj = state.categories.findIndex(
+        (obj) => obj._id == action.payload._id
+      );
+      state.categories[upd_obj].featured = action.payload.featured;
     });
     builder.addCase(deleteCategory.fulfilled, (state, action) => {
       const filteredArr = state.categories.filter(
