@@ -45,6 +45,16 @@ export const getFilterdCustomers = createAsyncThunk(
   }
 );
 
+export const logOutUser = createAsyncThunk("user/logout", async () => {
+  const res = await axios
+    .get(`${baseUrl}/user/logout`, {
+      withCredentials: true,
+    })
+    .then((res) => res)
+    .catch((err) => console.log({ err }));
+  return res.data;
+});
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
