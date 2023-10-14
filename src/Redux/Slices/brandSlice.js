@@ -7,7 +7,6 @@ const initialState = {
   pagination: {},
 };
 
-
 export const getBrands = createAsyncThunk("brands/get", async () => {
   const res = await axios
     // .get(`${baseUrl}` + "/products")
@@ -21,6 +20,7 @@ export const getBrands = createAsyncThunk("brands/get", async () => {
 export const getFilterdBrands = createAsyncThunk(
   "brands_filterd/get",
   async (page, status) => {
+    console.log({ brandPage: page });
     const res = await axios
       .get(`${baseUrl}/brands?page=${page}&status=${status}`)
       .then((res) => res)
@@ -61,6 +61,17 @@ export const createBrand = createAsyncThunk(
   }
 );
 
+export const featuredBrandStatusUpdate = createAsyncThunk(
+  "product-brand/featured/update",
+  async (id) => {
+    const res = await axios
+      .put(`${baseUrl}/brands/featured/${id}`, {}, { withCredentials: true })
+      .then((res) => res)
+      .catch((err) => console.log({ err }));
+    return res.data;
+  }
+);
+
 export const brandSlice = createSlice({
   name: "brands",
   initialState,
@@ -88,6 +99,12 @@ export const brandSlice = createSlice({
     builder.addCase(getFilterdBrands.fulfilled, (state, action) => {
       state.brands = action.payload.brands;
       state.pagination = action.payload.pagination;
+    });
+    builder.addCase(featuredBrandStatusUpdate.fulfilled, (state, action) => {
+      const upd_obj = state.brands.findIndex(
+        (obj) => obj._id == action.payload._id
+      );
+      state.brands[upd_obj].featured = action.payload.featured;
     });
   },
 });
