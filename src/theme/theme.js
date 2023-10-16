@@ -1,9 +1,6 @@
 // import { createTheme, responsiveFontSizes } from "@mui/material";
 import components from "./component/component";
 
-
-
-
 import { createTheme } from "@mui/material";
 
 let theme = createTheme({
@@ -28,7 +25,8 @@ let theme = createTheme({
       main: "#d23f57ff",
     },
   },
-  //   shadows: ["none"],
+  // shadows: ["none"],
+  shadows: Array(25).fill("none"),
 
   components,
 });
