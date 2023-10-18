@@ -12,17 +12,20 @@ import {
   Fab,
 } from "@mui/material";
 
+import { getProducts } from "../../../Redux/Slices/productSlice";
+import { useDispatch, useSelector } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
+import { useEffect } from "react";
 
-const rows = [
-  {
-    name: "Rakib",
-    phone: "0171828****1",
-    ordersCount: 10,
-    email: "mdrakibul.dev@gmail.com",
-  },
-];
 const AdminProductsPage = () => {
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.productSlice);
+
+  useEffect(() => {
+    dispatch(getProducts());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Box>
@@ -39,17 +42,21 @@ const AdminProductsPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row) => (
+              {products.map((product) => (
                 <TableRow
-                  key={row.name}
+                  key={product._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="left">{row.name}</TableCell>
+                  <TableCell align="left">{product.name}</TableCell>
                   <TableCell align="left">
-                    <Chip label="Chip Filled" color="primary" size="small" />
+                    <Chip
+                      label={product.category.name}
+                      color="primary"
+                      size="small"
+                    />
                   </TableCell>
-                  <TableCell align="left">{row.email}</TableCell>
-                  <TableCell align="left">{row.ordersCount}</TableCell>
+                  <TableCell align="left">{product.brand.name}</TableCell>
+                  <TableCell align="left">{product.price}</TableCell>
                   <TableCell align="left">
                     <Switch size="small" />
                   </TableCell>
