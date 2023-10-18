@@ -1,15 +1,19 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Box, Grid, Rating, Typography } from "@mui/material";
-import Fab from "@mui/material/Fab";
+/* eslint-disable react/prop-types */
+
+import {
+  Box,
+  Grid,
+  Rating,
+  Typography,
+  Fab,
+  DialogContent,
+  Dialog,
+  Button,
+} from "@mui/material";
+
 import CloseIcon from "@mui/icons-material/Close";
 
-const ProductModalView = ({ isOpen, close }) => {
+const ProductModalView = ({ isOpen, close, product }) => {
   return (
     <div>
       <div>
@@ -50,9 +54,11 @@ const ProductModalView = ({ isOpen, close }) => {
                     sx={{ display: "flex", flexDirection: "column", gap: 2 }}
                   >
                     <Typography variant="h5" fontWeight="bold">
-                      Classic Rolex Watch
+                      {product?.name}
                     </Typography>
-                    <Typography variant="p">CATEGORY: Cosmetic</Typography>
+                    <Typography variant="p">
+                      CATEGORY: {product?.category.name}
+                    </Typography>
                     <Box>
                       <Typography variant="h4" color="primary">
                         $350.00
