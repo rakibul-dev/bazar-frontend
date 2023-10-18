@@ -1,5 +1,8 @@
-import React, { useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useForm } from "react-hook-form";
+// eslint-disable-next-line no-unused-vars
+import { toast } from "react-toastify";
 
 import {
   Box,
@@ -10,33 +13,92 @@ import {
   MenuItem,
   Button,
 } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { getCategories } from "../../../Redux/Slices/productCategorySlice";
+import { createProduct } from "../../../Redux/Slices/productSlice";
 
 const AdminProductCreatePage = () => {
+  const [productImage, setProductImage] = useState(null);
+
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
     console.log({ acceptedFiles });
+    setProductImage(acceptedFiles);
   }, []);
+
+  const dispatch = useDispatch();
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
-  const currencies = [
-    {
-      value: "USD",
-      label: "$",
+
+  const {
+    register,
+    handleSubmit,
+    // watch,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
+      sale_price: "",
+      regular_price: "",
+      tag: "",
+      stock: "",
+      description: "",
+      category: "",
     },
-    {
-      value: "EUR",
-      label: "€",
-    },
-    {
-      value: "BTC",
-      label: "฿",
-    },
-    {
-      value: "JPY",
-      label: "¥",
-    },
-  ];
+  });
+
+  const categories = useSelector(
+    (state) => state.productCategorySlice.categories
+  );
+
+  useEffect(() => {
+    dispatch(getCategories());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onSubmit = async (data) => {
+    const {
+      name,
+      description,
+      sale_price,
+      regular_price,
+      stock,
+      tag,
+      category,
+    } = data;
+    const formData = new FormData();
+
+    productImage.forEach((element) => {
+      formData.append("product_image", element);
+    });
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("category", category._id);
+    formData.append("sale_price", sale_price);
+    formData.append("regular_price", regular_price);
+    formData.append("tag", tag);
+    formData.append("stock", stock);
+
+    // console.log({
+    //   productImage,
+    //   name,
+    //   sale_price,
+    //   regular_price,
+    //   stock,
+    //   tag,
+    //   description,
+    //   category,
+    // });
+
+    dispatch(createProduct(formData));
+
+    // console.log(formData.get("category"));
+
+    reset();
+  };
+
   return (
     <div>
       <Typography variant="h5" fontWeight="bold">
@@ -48,25 +110,31 @@ const AdminProductCreatePage = () => {
             <Grid container spacing={2}>
               <Grid item xs={6} md={6}>
                 <TextField
-                  id="outlined-password-input"
                   label="Name"
                   type="text"
-                  autoComplete="current-password"
                   fullWidth
+                  {...register("name", { required: "Please enter name" })}
+                  name="name"
+                  error={errors.name}
+                  helperText={errors.name?.message}
                 />
               </Grid>
               <Grid item xs={6} md={6}>
                 <TextField
-                  id="outlined-select-currency"
                   select
-                  label="Select"
-                  //   defaultValue="EUR"
-                  //   helperText="Please select your currency"
                   fullWidth
+                  label="Select"
+                  defaultValue=""
+                  inputProps={register("category", {
+                    required: "Please enter category",
+                  })}
+                  name="category"
+                  error={errors.category}
+                  helperText={errors.category?.message}
                 >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
+                  {categories.map((category) => (
+                    <MenuItem key={category._id} value={category}>
+                      {category.name}
                     </MenuItem>
                   ))}
                 </TextField>
@@ -124,63 +192,76 @@ const AdminProductCreatePage = () => {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <TextField fullWidth multiline rows={5} label="Description" />
-              </Grid>
-              <Grid item xs={6} md={6}>
                 <TextField
-                  id="outlined-password-input"
-                  label="Name"
-                  type="text"
-                  autoComplete="current-password"
                   fullWidth
+                  multiline
+                  rows={5}
+                  label="description"
+                  type="textField"
+                  name="description"
+                  {...register("description", {
+                    required: "Please enter description",
+                  })}
+                  error={errors.description}
+                  helperText={errors.description?.message}
                 />
               </Grid>
               <Grid item xs={6} md={6}>
                 <TextField
-                  id="outlined-password-input"
-                  label="Name"
+                  label="Stock"
                   type="text"
-                  autoComplete="current-password"
                   fullWidth
+                  name="stock"
+                  {...register("stock", {
+                    required: "Please enter stock",
+                  })}
+                  error={errors.stock}
+                  helperText={errors.stock?.message}
+                />
+              </Grid>
+              <Grid item xs={6} md={6}>
+                <TextField
+                  label="Tag"
+                  type="text"
+                  //   autoComplete="current-password"
+                  fullWidth
+                  {...register("tag")}
+                  name="tag"
                 />
               </Grid>
               <Grid item xs={6} md={6}>
                 <TextField
                   id="outlined-select-currency"
-                  select
-                  label="Select"
+                  label="Regular price"
+                  type="text"
                   //   defaultValue="EUR"
                   //   helperText="Please select your currency"
                   fullWidth
-                >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  name="regular_price"
+                  {...register("regular_price", {
+                    required: "Please enter regular price",
+                  })}
+                  error={errors.regular_price}
+                  helperText={errors.regular_price?.message}
+                />
               </Grid>
               <Grid item xs={6} md={6}>
                 <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select"
+                  label="Sale price"
+                  type="text"
                   //   defaultValue="EUR"
                   //   helperText="Please select your currency"
                   fullWidth
-                >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                  {...register("sale_price")}
+                  name="sale_price"
+                />
               </Grid>
             </Grid>
             <Button
               variant="contained"
               size="medium"
               sx={{ marginTop: "25px" }}
+              onClick={handleSubmit(onSubmit)}
             >
               Submit
             </Button>
