@@ -50,7 +50,7 @@ const AdminBrandCreatePage = () => {
 
     // data.categoryImage = categoryImage;
 
-    dispatch(createBrand(formData));
+    // dispatch(createBrand(formData));
     reset();
   };
 
