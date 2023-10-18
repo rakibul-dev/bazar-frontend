@@ -19,6 +19,16 @@ export const loginUser = createAsyncThunk("user/get", async (userInfo) => {
   return res.data;
 });
 
+export const getUserInfo = createAsyncThunk("current-user/get", async () => {
+  const res = await axios
+    .get(`${baseUrl}/user`, {
+      withCredentials: true,
+    })
+    .then((res) => res)
+    .catch((err) => console.log({ err }));
+  return res.data;
+});
+
 export const getCustomers = createAsyncThunk(
   "user-customer/get",
   async (page, role) => {
@@ -60,6 +70,9 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(getUserInfo.fulfilled, (state, action) => {
+      state.user = action.payload;
+    });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload;
     });
