@@ -24,6 +24,7 @@ import {
   getBrands,
   deleteBrand,
   setPageNumber,
+  featuredBrandStatusUpdate,
   getFilterdBrands,
 } from "../../../Redux/Slices/brandSlice";
 
@@ -46,8 +47,11 @@ const AdminBrandsPage = () => {
   };
 
   const deleteBrandHandler = (brandId) => {
-    console.log(brandId);
     dispatch(deleteBrand(brandId));
+  };
+
+  const handleFeaturedCategory = (id) => {
+    dispatch(featuredBrandStatusUpdate(id));
   };
   return (
     <>
@@ -97,7 +101,11 @@ const AdminBrandsPage = () => {
                     </TableCell>
 
                     <TableCell align="left">
-                      <Switch size="small" />
+                      <Switch
+                        size="small"
+                        checked={brand.featured}
+                        onChange={() => handleFeaturedCategory(brand._id)}
+                      />
                     </TableCell>
                     <TableCell align="center">
                       <Fab
@@ -119,12 +127,14 @@ const AdminBrandsPage = () => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Pagination
-          count={pagination.total_pages}
-          //   page={page}
-          onChange={handlePagiinationChange}
-          color="primary"
-        />
+        {pagination.total_pages > 1 ? (
+          <Pagination
+            count={pagination.total_pages}
+            page={pagination.page}
+            onChange={handlePagiinationChange}
+            color="primary"
+          />
+        ) : null}
       </Box>
     </>
   );
