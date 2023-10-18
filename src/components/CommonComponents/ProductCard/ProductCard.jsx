@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
 import {
   Box,
   Grid,
@@ -16,13 +17,18 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ProductModalView from "../../PageComponents/CommonPages/ProductCard/ProductModalView";
 
-const ProductCard = () => {
+import { addToCart } from "../../../Redux/Slices/cartSlice";
+
+const ProductCard = ({ product }) => {
+  const { user } = useSelector((state) => state.userSlice);
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -68,9 +74,14 @@ const ProductCard = () => {
                         size="small"
                         color="primary"
                         aria-label="add"
-                        onClick={() => handleClickOpen()}
+                        onClick={() => {
+                          handleClickOpen();
+                          setTimeout(() => {
+                            setShow(false);
+                          }, 100);
+                        }}
                       >
-                        <FavoriteIcon fontSize="small" />
+                        <VisibilityIcon fontSize="small" />
                       </Fab>
                       <Fab size="small" color="primary" aria-label="add">
                         <FavoriteIcon fontSize="small" />
@@ -97,7 +108,7 @@ const ProductCard = () => {
               <Grid container justifyContent="space-around">
                 <Grid item md={7}>
                   <Typography variant="h6" fontWeight="bold" fontSize={15}>
-                    Classic Rolex Watch
+                    {product?.name}
                   </Typography>
                   <Rating name="simple-controlled" value={4} />
                 </Grid>
@@ -114,7 +125,19 @@ const ProductCard = () => {
                       justifyContent="center"
                       direction="column"
                     >
-                      <Fab size="small" color="primary" aria-label="add">
+                      <Fab
+                        size="small"
+                        color="primary"
+                        aria-label="add"
+                        onClick={() => {
+                          dispatch(
+                            addToCart({
+                              productId: product._id,
+                              userId: user._id,
+                            })
+                          );
+                        }}
+                      >
                         <AddIcon fontSize="small" />
                       </Fab>
                     </Stack>
@@ -122,7 +145,11 @@ const ProductCard = () => {
                 </Grid>
               </Grid>
             </Box>
-            <ProductModalView isOpen={open} close={handleClose} />
+            <ProductModalView
+              product={product}
+              isOpen={open}
+              close={handleClose}
+            />
           </Paper>
         </Box>
       </Box>
