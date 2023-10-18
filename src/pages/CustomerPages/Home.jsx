@@ -3,7 +3,10 @@ import Container from "@mui/material/Container";
 import AdBanner from "../../components/PageComponents/CustomerPages/HomePageComponents/Banner/AdBanner";
 import BigDiscounts from "../../components/PageComponents/CustomerPages/HomePageComponents/BigDiscounts/BigDiscounts";
 import FlashDeals from "../../components/PageComponents/CustomerPages/HomePageComponents/FlashDeals/FlashDeals";
+import { useEffect } from "react";
 const Home = () => {
+  useEffect(() => {}, []);
+
   return (
     <div>
       <AdBanner />
@@ -14,7 +17,7 @@ const Home = () => {
           gap={5}
           flexDirection="column"
           sx={{
-            marginTop: "25px",
+            marginTop: "50px",
             marginBottom: "25px",
           }}
         >
