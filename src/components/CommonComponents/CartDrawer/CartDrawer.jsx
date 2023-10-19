@@ -1,32 +1,37 @@
 import React from "react";
 import { useEffect } from "react";
-// import Drawer from "@mui/material/Drawer";
+
 import CartDrawerItem from "./CartDrawerItem";
 import { Grid, Typography, Stack, Fab, Box, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { useDispatch, useSelector } from "react-redux";
+import { getCartItems } from "../../../Redux/Slices/cartSlice";
 // import component 👇
 import Drawer from "react-modern-drawer";
 
 //import styles 👇
 import "react-modern-drawer/dist/index.css";
-// document.body.classList.add("no-scroll");
+
 const CartDrawer = ({ toggleDrawer, isOpen }) => {
+  const { user } = useSelector((state) => state.userSlice);
+  const { cart } = useSelector((state) => state.cartSlice);
+  const dispatch = useDispatch();
+
   const drawerWidth = 350;
-  //   const [isOpen, setIsOpen] = React.useState(false);
-  //   const toggleDrawer = () => {
-  //     setIsOpen((prevState) => !prevState);
-  //     if (!isOpen) {
-  //       document.body.style.overflow = "hidden";
-  //     }
-  //   };
 
   if (isOpen === false) {
     document.body.style.overflowY = "scroll";
   }
+
+  useEffect(() => {
+    if (user) {
+      dispatch(getCartItems(user._id));
+    }
+  }, []);
+  console.log({ user: user._id });
+
   return (
     <>
-      {/* <button onClick={toggleDrawer}>Show</button> */}
       <Drawer
         open={isOpen}
         onClose={toggleDrawer}
@@ -83,8 +88,9 @@ const CartDrawer = ({ toggleDrawer, isOpen }) => {
               width: "100%",
             }}
           >
-            <CartDrawerItem />
-            <CartDrawerItem />
+            {cart?.map((item) => (
+              <CartDrawerItem key={item._id} item={item} />
+            ))}
           </Box>
           <Box
             sx={{ position: "fixed", bottom: "1px", height: "13%" }}
@@ -104,50 +110,6 @@ const CartDrawer = ({ toggleDrawer, isOpen }) => {
         </Box>
       </Drawer>
     </>
-    // <Drawer
-    //   anchor="right"
-    //   open={true}
-    //   onClose="backdropClick"
-    //   PaperProps={{
-    //     sx: { width: drawerWidth, height: "100vh" },
-    //   }}
-    //   sx={{}}
-
-    //   //   onClose={toggleDrawer(anchor, false)}
-    // >
-    //   <Box sx={{ m: 2, position: "fixed", width: "100%" }}>
-    //     <Stack
-    //       direction="row"
-    //       justifyContent="space-between"
-    //       alignItems="center"
-    //     >
-    //       <Typography variant="h5" fontWeight="bold">
-    //         Cart
-    //       </Typography>
-    //       <Fab size="small" color="primary" aria-label="add">
-    //         <CloseIcon fontSize="small" />
-    //       </Fab>
-    //     </Stack>
-    //   </Box>
-    //   <Box height="60vh">
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //     <CartDrawerItem />
-    //   </Box>
-
-    //   <Box sx={{ position: "fixed", bottom: "1px" }}>
-    //     <Stack>
-    //       <Button variant="contained">Checkout now $670.00</Button>
-    //       <Button variant="outlined">Checkout now $670.00</Button>
-    //     </Stack>
-    //   </Box>
-    // </Drawer>
   );
 };
 
