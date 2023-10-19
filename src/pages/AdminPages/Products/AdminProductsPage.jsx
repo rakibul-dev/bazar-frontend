@@ -25,7 +25,7 @@ const AdminProductsPage = () => {
     dispatch(getProducts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  console.log({ products });
   return (
     <>
       <Box>
@@ -42,7 +42,7 @@ const AdminProductsPage = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {products.map((product) => (
+              {products?.map((product) => (
                 <TableRow
                   key={product._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -55,7 +55,9 @@ const AdminProductsPage = () => {
                       size="small"
                     />
                   </TableCell>
-                  <TableCell align="left">{product.brand.name}</TableCell>
+                  <TableCell align="left">
+                    {product.brand?.name ? product.brand.name : <p>N/A</p>}
+                  </TableCell>
                   <TableCell align="left">{product.price}</TableCell>
                   <TableCell align="left">
                     <Switch size="small" />
