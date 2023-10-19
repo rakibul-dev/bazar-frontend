@@ -1,7 +1,20 @@
+/* eslint-disable react/prop-types */
 import { Box, Fab, Grid, Stack, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+  decrementCartQuantity,
+  incrementCartQuantity,
+} from "../../../Redux/Slices/cartSlice";
+const CartDrawerItem = ({ item }) => {
+  const dispatch = useDispatch();
 
-const CartDrawerItem = () => {
+  const handleIncrementQuantity = (item) => {
+    dispatch(incrementCartQuantity(item));
+  };
+  const handleDeccrementQuantity = (item) => {
+    if (item.quantity !== 1) dispatch(decrementCartQuantity(item));
+  };
   return (
     <div style={{ marginTop: "15px", marginBottom: "15px", width: "100%" }}>
       <Stack direction="row" justifyContent="space-around" alignItems="center">
@@ -17,10 +30,14 @@ const CartDrawerItem = () => {
                 border: "2px solid #d23f57ff",
                 fontSize: "20px",
               }}
+              onClick={() => {
+                handleIncrementQuantity(item);
+              }}
             >
               +
             </button>
-            <Typography variant="h6">5</Typography>
+
+            <Typography variant="h6">{item.quantity}</Typography>
             <button
               style={{
                 width: "30px",
@@ -30,6 +47,9 @@ const CartDrawerItem = () => {
                 // border: "none",
                 border: "2px solid #d23f57ff",
                 fontSize: "20px",
+              }}
+              onClick={() => {
+                handleDeccrementQuantity(item);
               }}
             >
               -
