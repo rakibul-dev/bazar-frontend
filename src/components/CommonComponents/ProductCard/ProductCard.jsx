@@ -19,6 +19,8 @@ import ProductModalView from "../../PageComponents/CommonPages/ProductCard/Produ
 
 import { addToCart } from "../../../Redux/Slices/cartSlice";
 
+import { toast, ToastContainer } from "react-toastify";
+
 const ProductCard = ({ product }) => {
   const { user } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
@@ -135,7 +137,11 @@ const ProductCard = ({ product }) => {
                               productId: product._id,
                               userId: user._id,
                             })
-                          );
+                          ).then((res) => {
+                            if (res.meta.requestStatus === "fulfilled") {
+                              toast.success("Product added to the cart");
+                            }
+                          });
                         }}
                       >
                         <AddIcon fontSize="small" />
