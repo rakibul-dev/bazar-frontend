@@ -3,10 +3,11 @@ import FlashOnIcon from "@mui/icons-material/FlashOn";
 
 // import ProductCard from "../../../CommonPages/ProductCard/ProductCard";
 import ProductCard from "../../../../CommonComponents/ProductCard/ProductCard";
-
-
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts } from "../../../../../Redux/Slices/productSlice";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { useEffect } from "react";
 
 const responsive = {
   desktop: {
@@ -26,6 +27,13 @@ const responsive = {
   },
 };
 const FlashDeals = () => {
+  const dispatch = useDispatch();
+  const { products } = useSelector((state) => state.productSlice);
+  console.log(products);
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
   return (
     <div>
       <Box>
@@ -57,35 +65,12 @@ const FlashDeals = () => {
           </Grid>
         </Box>
         <Box>
-          {/* <Carousel
-            responsive={responsive}
-            itemClass="carousel-item-padding-100-px"
-          >
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-            <ProductCard />
-          </Carousel> */}
           <Carousel responsive={responsive} width="80%">
-            <Box sx={{ m: 2 }}>
-              <ProductCard />
-            </Box>
-            <Box sx={{ m: 2 }}>
-              <ProductCard />
-            </Box>
-            <Box sx={{ m: 2 }}>
-              <ProductCard />
-            </Box>
-            <Box sx={{ m: 2 }}>
-              <ProductCard />
-            </Box>
-            <Box sx={{ m: 2 }}>
-              <ProductCard />
-            </Box>
+            {products.map((item) => (
+              <Box sx={{ m: 2 }} key={item._id}>
+                <ProductCard product={item} />
+              </Box>
+            ))}
           </Carousel>
         </Box>
       </Box>

@@ -1,5 +1,7 @@
-import React, { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useDropzone } from "react-dropzone";
+import { useForm } from "react-hook-form";
 
 import {
   Box,
@@ -7,42 +9,58 @@ import {
   Paper,
   Typography,
   TextField,
-  MenuItem,
   Button,
   Checkbox,
   FormControlLabel,
 } from "@mui/material";
-const AdminCategoryCreatePage = () => {
+import { createBrand } from "../../../Redux/Slices/brandSlice";
+
+const AdminBrandCreatePage = () => {
+  const dispatch = useDispatch();
+  const [brandImage, selectBrandImage] = useState(null);
+
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    console.log({ acceptedFiles });
+    selectBrandImage(acceptedFiles[0]);
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
   });
-  const currencies = [
-    {
-      value: "USD",
-      label: "$",
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      name: "",
     },
-    {
-      value: "EUR",
-      label: "€",
-    },
-    {
-      value: "BTC",
-      label: "฿",
-    },
-    {
-      value: "JPY",
-      label: "¥",
-    },
-  ];
+  });
+
+  useEffect(() => {}, []);
+
+  const onSubmit = async (data) => {
+    // console.log(data);
+    const { name } = data;
+    const formData = new FormData();
+    formData.append("brand-image", brandImage);
+    formData.append("name", name);
+
+    // data.categoryImage = categoryImage;
+
+    // dispatch(createBrand(formData));
+    reset();
+  };
+
+  console.log(watch("example"));
+
   return (
     <>
       <Box display="flex" flexDirection="column" gap={2}>
         <Typography variant="h5" fontWeight="bold">
-          Add New Product
+          Create New Brand
         </Typography>
         <Paper>
           <Box
@@ -52,30 +70,15 @@ const AdminCategoryCreatePage = () => {
             gap={2}
           >
             <Grid container spacing={2}>
-              <Grid item xs={6} md={6}>
+              <Grid item xs={12} md={12}>
                 <TextField
                   id="outlined-password-input"
                   label="Name"
                   type="text"
-                  autoComplete="current-password"
                   fullWidth
+                  {...register("name")}
+                  name="name"
                 />
-              </Grid>
-              <Grid item xs={6} md={6}>
-                <TextField
-                  id="outlined-select-currency"
-                  select
-                  label="Select"
-                  //   defaultValue="EUR"
-                  //   helperText="Please select your currency"
-                  fullWidth
-                >
-                  {currencies.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </TextField>
               </Grid>
 
               <Grid item xs={12} md={12}>
@@ -129,18 +132,19 @@ const AdminCategoryCreatePage = () => {
                   </div>
                 </Box>
               </Grid>
-              <Grid item md={12}>
+              {/* <Grid item md={12}>
                 <FormControlLabel
                   control={<Checkbox />}
                   label="Label"
                   onChange={(e) => console.log(e.target.value)}
                 />
-              </Grid>
+              </Grid> */}
               <Grid item md={12}>
                 <Button
                   variant="contained"
                   size="medium"
                   sx={{ marginTop: "15px" }}
+                  onClick={handleSubmit(onSubmit)}
                 >
                   Save category
                 </Button>
@@ -153,4 +157,4 @@ const AdminCategoryCreatePage = () => {
   );
 };
 
-export default AdminCategoryCreatePage;
+export default AdminBrandCreatePage;

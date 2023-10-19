@@ -11,7 +11,7 @@ const AdminLayout = () => {
     <div>
       <Box>
         <Grid container>
-          <Grid item md={2}>
+          <Grid item md={2} sx={{ display: { sm: "none", md: "block" } }}>
             {/* <Box sx={{ overflow: "scroll", maxHeight: "100vh" }}> */}
             <Box style={{ height: "100vh" }}>
               <Box

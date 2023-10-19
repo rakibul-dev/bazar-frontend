@@ -19,18 +19,23 @@ import CustomerAddressesPage from "../pages/CustomerPages/Dashboard/CustomerAddr
 
 // Admin Pages
 import AdminLayout from "../layouts/AdminLayout";
-import AdminBrandsPage from "../pages/AdminPages/AdminBrandsPage";
-import AdminCategoryPage from "../pages/AdminPages/AdminCategoryPage";
-import AdminCustomersPage from "../pages/AdminPages/AdminCustomersPage";
+import AdminBrandsPage from "../pages/AdminPages/Brand/AdminBrandsPage";
+import AdminCategoryPage from "../pages/AdminPages/Category/AdminCategoryPage";
+import AdminCustomersPage from "../pages/AdminPages/Customers/AdminCustomersPage";
 import AdminDashboard from "../pages/AdminPages/AdminDashboard";
-import AdminOrdersPage from "../pages/AdminPages/AdminOrdersPage";
-import AdminProductsPage from "../pages/AdminPages/AdminProductsPage";
-import AdminRefundsPage from "../pages/AdminPages/AdminRefundsPage";
+import AdminOrdersPage from "../pages/AdminPages/Orders/AdminOrdersPage";
+import AdminProductsPage from "../pages/AdminPages/Products/AdminProductsPage";
+import AdminRefundsPage from "../pages/AdminPages/Refunds/AdminRefundsPage";
 import AdminSellersPage from "../pages/AdminPages/AdminSellersPage";
-import AdminProductCreatePage from "../pages/AdminPages/AdminProductCreatePage";
-import AdminProductReview from "../pages/AdminPages/AdminProductReview";
-import AdminCategoryCreatePage from "../pages/AdminPages/AdminCategoryCreatePage";
-import AdminBrandCreatePage from "../pages/AdminPages/AdminBrandCreatePage";
+import AdminProductCreatePage from "../pages/AdminPages/Products/AdminProductCreatePage";
+import AdminProductReview from "../pages/AdminPages/Products/AdminProductReview";
+import AdminCategoryCreatePage from "../pages/AdminPages/Category/AdminCategoryCreatePage";
+import AdminBrandCreatePage from "../pages/AdminPages/Brand/AdminBrandCreatePage";
+import AdminOrderDetailsPage from "../pages/AdminPages/Orders/AdminOrderDetailsPage";
+
+// Auth pages
+import CustomerLoginPage from "../pages/AuthPages/CustomerLoginPage";
+import CustomerRegisterPage from "../pages/AuthPages/CustomerRegisterPage";
 
 const Router = createBrowserRouter([
   // Customer
@@ -105,6 +110,14 @@ const Router = createBrowserRouter([
         element: <AdminCategoryCreatePage />,
       },
       {
+        path: "order/create",
+        element: <AdminCategoryCreatePage />,
+      },
+      {
+        path: "order/:id",
+        element: <AdminOrderDetailsPage />,
+      },
+      {
         path: "brand/create",
         element: <AdminBrandCreatePage />,
       },
@@ -113,6 +126,15 @@ const Router = createBrowserRouter([
         element: <AdminSellersPage />,
       },
     ],
+  },
+  //   Auth
+  {
+    path: "/customer/login",
+    element: <CustomerLoginPage />,
+  },
+  {
+    path: "/customer/register",
+    element: <CustomerRegisterPage />,
   },
   //   Errors pages
   {

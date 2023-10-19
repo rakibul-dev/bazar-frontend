@@ -9,22 +9,33 @@ import {
   Button,
   Stack,
   Badge,
+  InputAdornment,
 } from "@mui/material";
 import React from "react";
-
-import InputAdornment from "@mui/material/InputAdornment";
 
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import CartDrawer from "../CartDrawer/CartDrawer";
 
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const CustomerAppBar = () => {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.userSlice);
+  const { cart } = useSelector((state) => state.cartSlice);
   const [isOpen, setIsOpen] = React.useState(false);
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
     if (!isOpen) {
       document.body.style.overflow = "hidden";
+    }
+  };
+
+  const handleNavigateDashboard = () => {
+    if (user.role === "admin") {
+      navigate("/admin/dashboard");
     }
   };
   return (
@@ -82,7 +93,12 @@ const CustomerAppBar = () => {
               <Grid item md={1} xs={2}>
                 <Box display="flex" justifyContent="center" alignItems="center">
                   <Stack direction="row" justifyContent="center">
-                    <IconButton size="large">
+                    <IconButton
+                      size="large"
+                      onClick={() => {
+                        handleNavigateDashboard();
+                      }}
+                    >
                       <PersonIcon />
                     </IconButton>
                     <IconButton
@@ -92,7 +108,7 @@ const CustomerAppBar = () => {
                         toggleDrawer();
                       }}
                     >
-                      <Badge badgeContent={4} color="primary">
+                      <Badge badgeContent={cart.length} color="primary">
                         <LocalMallIcon />
                       </Badge>
                     </IconButton>
