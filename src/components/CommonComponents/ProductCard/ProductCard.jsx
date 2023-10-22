@@ -39,13 +39,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-      <Box
-        onClick={() => {
-          console.log("clicked");
-          navigate(`/product/${product._id}`);
-        }}
-        style={{ cursor: "pointer" }}
-      >
+      <Box style={{ cursor: "pointer" }}>
         <Box
           sx={{
             width: "100%",
@@ -112,6 +106,10 @@ const ProductCard = ({ product }) => {
                   src="/images/watch.png"
                   alt=""
                   style={{ height: "40%", width: "90%" }}
+                  onClick={() => {
+                    console.log("clicked");
+                    navigate(`/product/${product._id}`);
+                  }}
                 />
               </Box>
 
