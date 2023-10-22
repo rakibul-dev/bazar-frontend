@@ -1,19 +1,40 @@
 import React from "react";
-import { Box, Grid, Paper, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+
+import { useNavigate } from "react-router-dom";
 
 const ShippingAddress = () => {
+  const navigate = useNavigate();
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+      gap={3}
+    >
       <Paper elevation={3}>
         <Box sx={{ padding: "20px" }}>
-          <Typography variant="h6" fontSize={16} fontWeight="bold">
-            Shipping Address
-          </Typography>
+          <Box sx={{ marginBottom: "20px" }}>
+            <Typography variant="h6" fontSize={16} fontWeight="bold">
+              Shipping Address
+            </Typography>
+          </Box>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <TextField
                 id="outlined-basic"
-                label="Voucher"
+                label="Full Name"
                 variant="outlined"
                 fullWidth
                 size="small"
@@ -22,7 +43,7 @@ const ShippingAddress = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 id="outlined-basic"
-                label="Voucher"
+                label="Email address"
                 variant="outlined"
                 fullWidth
                 size="small"
@@ -31,7 +52,7 @@ const ShippingAddress = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 id="outlined-basic"
-                label="Voucher"
+                label="Phone number"
                 variant="outlined"
                 fullWidth
                 size="small"
@@ -40,7 +61,7 @@ const ShippingAddress = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 id="outlined-basic"
-                label="Voucher"
+                label="Zip code"
                 variant="outlined"
                 fullWidth
                 size="small"
@@ -49,7 +70,7 @@ const ShippingAddress = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 id="outlined-basic"
-                label="Voucher"
+                label="Address 1"
                 variant="outlined"
                 fullWidth
                 size="small"
@@ -58,7 +79,7 @@ const ShippingAddress = () => {
             <Grid item xs={12} md={6}>
               <TextField
                 id="outlined-basic"
-                label="Voucher"
+                label="Address 2"
                 variant="outlined"
                 fullWidth
                 size="small"
@@ -67,6 +88,31 @@ const ShippingAddress = () => {
           </Grid>
         </Box>
       </Paper>
+
+      <Grid container spacing={2}>
+        <Grid item md={6}>
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={() => {
+              navigate("/cart");
+            }}
+          >
+            Back To Cart
+          </Button>
+        </Grid>
+        <Grid item md={6}>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={() => {
+              navigate("/payment");
+            }}
+          >
+            Proceed To Payment
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   );
 };
