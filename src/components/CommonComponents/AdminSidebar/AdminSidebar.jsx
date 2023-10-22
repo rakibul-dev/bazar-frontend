@@ -141,7 +141,7 @@ const AdminSidebar = () => {
   return (
     <Box sx={{ display: "flex", width: "100%" }}>
       {/* <Paper elevation={0} sx={{ width: "100%" }}> */}
-      <List component="nav" sx={{ width: "100%", backgroundColor: "#2b3445" }}>
+      <List component="nav" sx={{ width: "100%" }}>
         {/* <ListItemButton component="a" href="#customized-list">
               <ListItemIcon sx={{ fontSize: 20 }}>🔥</ListItemIcon>
               <ListItemText
