@@ -45,8 +45,13 @@ const CustomerAppBar = () => {
           <Toolbar>
             <Grid container justifyContent="space-between" alignItems="center">
               <Grid item md={1} xs={1}>
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                  Photos
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ flexGrow: 1 }}
+                  fontWeight="bold"
+                >
+                  Resturant
                 </Typography>
               </Grid>
               <Grid item xs={6} md={8} alignItems="center">
