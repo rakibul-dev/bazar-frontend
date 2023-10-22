@@ -1,10 +1,15 @@
 import React from "react";
-import Radio from "@mui/material/Radio";
-import RadioGroup from "@mui/material/RadioGroup";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
-import { Box } from "@mui/material";
+import {
+  Radio,
+  Button,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  FormLabel,
+  Box,
+} from "@mui/material";
+
+import { useState } from "react";
 
 const PaymentType = () => {
   const [value, setValue] = React.useState();
@@ -28,13 +33,12 @@ const PaymentType = () => {
             <FormControlLabel
               value="female"
               control={<Radio />}
-              label="Female"
+              label="Cash On Delivery"
             />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
           </RadioGroup>
         </FormControl>
       </Box>
+
     </div>
   );
 };
