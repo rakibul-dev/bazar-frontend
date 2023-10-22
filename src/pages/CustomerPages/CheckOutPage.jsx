@@ -13,7 +13,7 @@ const CheckOutPage = () => {
             <Grid item xs={12} md={7} order={{ xs: 2, md: 1 }}>
               <Box sx={{ display: "flex", flexDirection: "column" }} gap={4}>
                 <ShippingAddress />
-                <BillingAddress />
+                {/* <BillingAddress /> */}
               </Box>
             </Grid>
             <Grid item xs={12} md={4} order={{ xs: 1, md: 2 }}>
