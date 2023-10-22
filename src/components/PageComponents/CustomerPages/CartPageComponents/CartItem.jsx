@@ -1,7 +1,18 @@
+/* eslint-disable react/prop-types */
 import { Box, Fab, Grid, Paper, Stack, Typography } from "@mui/material";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-const CartItem = () => {
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  incrementCartQuantity,
+  decrementCartQuantity,
+  deleteCartItem,
+} from "../../../../Redux/Slices/cartSlice";
+
+const CartItem = ({ item }) => {
+  const dispatch = useDispatch();
   return (
     <>
       <Paper elevation={3} sx={{ height: "140px" }}>
@@ -25,12 +36,27 @@ const CartItem = () => {
                   <Typography variant="h6" fontWeight="bold" fontSize={18}>
                     Silver High Neck Sweater
                   </Typography>
-                  <Fab size="small" color="primary" aria-label="add">
+                  <Fab
+                    size="small"
+                    color="primary"
+                    aria-label="add"
+                    onClick={() => {
+                      dispatch(deleteCartItem(item));
+                    }}
+                  >
                     <DeleteIcon />
                   </Fab>
                 </Stack>
                 <Box sx={{ marginBottom: "10px" }}>
-                  <Typography variant="p">$210.00 x 1 $210.00</Typography>
+                  <Typography variant="p">
+                    {item.product.sale_price
+                      ? item.product.sale_price
+                      : item.product.regular_price}
+                    {""}X {item.quantity} {""}
+                    {item.product.sale_price
+                      ? item.product.sale_price * item.quantity
+                      : item.product.regular_price * item.quantity}
+                  </Typography>
                 </Box>
 
                 <Stack
@@ -40,12 +66,26 @@ const CartItem = () => {
 
                   //   alignItems="flex-start"
                 >
-                  <Fab size="small" color="primary" aria-label="add">
-                    <DeleteIcon />
+                  <Fab
+                    size="small"
+                    color="primary"
+                    aria-label="add"
+                    onClick={() => {
+                      dispatch(incrementCartQuantity(item));
+                    }}
+                  >
+                    <AddIcon />
                   </Fab>
-                  <Typography>5</Typography>
-                  <Fab size="small" color="primary" aria-label="add">
-                    <DeleteIcon />
+                  <Typography>{item.quantity}</Typography>
+                  <Fab
+                    size="small"
+                    color="primary"
+                    aria-label="add"
+                    onClick={() => {
+                      dispatch(decrementCartQuantity(item));
+                    }}
+                  >
+                    <RemoveIcon />
                   </Fab>
                 </Stack>
               </Box>
