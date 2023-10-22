@@ -7,9 +7,10 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { useSelector } from "react-redux";
 
 const TotalPricing = () => {
+  const { cartTotal } = useSelector((state) => state.cartSlice);
   return (
     <div>
       <Box>
@@ -22,7 +23,7 @@ const TotalPricing = () => {
               <Stack direction="row" justifyContent="space-between">
                 <Typography variant="p"> Subtotal:</Typography>
                 <Typography variant="h6" fontWeight="bold">
-                  $2,610.00
+                  ${cartTotal}
                 </Typography>
               </Stack>
               <Stack direction="row" justifyContent="space-between">
@@ -39,7 +40,7 @@ const TotalPricing = () => {
               </Stack>
               <Stack justifyContent="flex-end" flexDirection="row">
                 <Typography variant="h5" fontWeight="bold">
-                  $2,610.00
+                  ${cartTotal}
                 </Typography>
               </Stack>
             </Box>
