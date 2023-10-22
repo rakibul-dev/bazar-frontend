@@ -1,12 +1,14 @@
-const MuiButton = {
+const MuiButtonBase = {
   styleOverrides: {
-    // Name of the slot
     root: {
       // Some CSS
       fontSize: "1rem",
-      textTransform: "none",
+      textTransform: "Capitalize",
       //   borderRadius: "5px",
     },
   },
+  defaultProps: {
+    disableRipple: true, // No more ripple, on the whole application 💣!
+  },
 };
-export default MuiButton;
+export default MuiButtonBase;
