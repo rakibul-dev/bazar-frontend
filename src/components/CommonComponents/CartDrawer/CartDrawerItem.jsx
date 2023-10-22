@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   decrementCartQuantity,
+  deleteCartItem,
   incrementCartQuantity,
 } from "../../../Redux/Slices/cartSlice";
 const CartDrawerItem = ({ item }) => {
@@ -101,6 +102,9 @@ const CartDrawerItem = ({ item }) => {
               // border: "none",
               border: "2px solid #d23f57ff",
               fontSize: "20px",
+            }}
+            onClick={() => {
+              dispatch(deleteCartItem(item));
             }}
           >
             x

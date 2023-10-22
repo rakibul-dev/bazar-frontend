@@ -12,8 +12,14 @@ import {
 } from "@mui/material";
 
 import CloseIcon from "@mui/icons-material/Close";
+import { toast } from "react-toastify";
+
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../../Redux/Slices/cartSlice";
 
 const ProductModalView = ({ isOpen, close, product }) => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userSlice);
   return (
     <div>
       <div>
@@ -72,7 +78,22 @@ const ProductModalView = ({ isOpen, close, product }) => {
                     </Typography>
                   </Box>
                   <Box sx={{ my: 3 }}>
-                    <Button variant="contained" size="medium">
+                    <Button
+                      variant="contained"
+                      size="medium"
+                      onClick={() => {
+                        dispatch(
+                          addToCart({
+                            userId: user._id,
+                            productId: product._id,
+                          })
+                        ).then((res) => {
+                          if (res.meta.requestStatus === "fulfilled") {
+                            toast.success("Product added to the cart");
+                          }
+                        });
+                      }}
+                    >
                       Add To Cart
                     </Button>
                   </Box>

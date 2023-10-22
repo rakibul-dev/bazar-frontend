@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 const baseUrl = import.meta.env.VITE_BASE_URL;
 import axios from "axios";
 
@@ -46,6 +46,7 @@ export const incrementCartQuantity = createAsyncThunk(
     return res.data;
   }
 );
+
 export const decrementCartQuantity = createAsyncThunk(
   "cart-quantity/decrement",
   async (item) => {
@@ -62,24 +63,31 @@ export const decrementCartQuantity = createAsyncThunk(
   }
 );
 
-function calculateTotalPrice(items) {
-  let totalPrice = 0;
+export const deleteCartItem = createAsyncThunk(
+  "cart-item/delete",
+  async (item) => {
+    const res = await axios
+      .delete(`${baseUrl}/cart/${item._id}`, { withCredentials: true })
+      .then((res) => res)
+      .catch((err) => console.log({ err }));
 
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i];
+    return res.data;
+  }
+);
 
-    totalPrice += item.price * item.quantity;
+function calculateCartTotal(cart) {
+  let total = 0;
+
+  for (const item of cart) {
+    if (item.product.sale_price !== null) {
+      total += item.product.sale_price * item.quantity;
+    } else {
+      total += item.product.regular_price * item.quantity;
+    }
   }
 
-  return totalPrice;
+  return total;
 }
-
-const items = [
-  { name: "shirt", price: 200, quantity: 10 },
-  { name: "shirt", price: 200, quantity: 5 },
-];
-
-const totalPrice = calculateTotalPrice(items);
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -88,25 +96,53 @@ export const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getCartItems.fulfilled, (state, action) => {
       state.cart = action.payload;
+      const total = calculateCartTotal(state.cart);
+      state.cartTotal = total;
     });
     builder.addCase(addToCart.fulfilled, (state, action) => {
-      state.cart = [...state.cart, action.payload];
+      const isExist = () => {
+        let isTrue;
+        state.cart.forEach((item, index) => {
+          if (item.product._id === action.payload.product._id) {
+            isTrue = true;
+          }
+        });
+        return isTrue;
+      };
+
+      if (isExist()) {
+        return;
+      } else {
+        state.cart = [...state.cart, action.payload];
+      }
+      const total = calculateCartTotal(state.cart);
+      state.cartTotal = total;
     });
     builder.addCase(incrementCartQuantity.fulfilled, (state, action) => {
-      //   state.cart = [...state.cart, action.payload];
       state.cart.forEach((item, index) => {
         if (item._id == action.payload._id) {
           state.cart[index] = action.payload;
         }
       });
+      const total = calculateCartTotal(state.cart);
+      state.cartTotal = total;
     });
     builder.addCase(decrementCartQuantity.fulfilled, (state, action) => {
-      //   state.cart = [...state.cart, action.payload];
       state.cart.forEach((item, index) => {
         if (item._id == action.payload._id) {
           state.cart[index] = action.payload;
         }
       });
+      const total = calculateCartTotal(state.cart);
+      state.cartTotal = total;
+    });
+    builder.addCase(deleteCartItem.fulfilled, (state, action) => {
+      const newCartArray = state.cart.filter(
+        (item) => item._id !== action.payload._id
+      );
+      state.cart = newCartArray;
+      const total = calculateCartTotal(state.cart);
+      state.cartTotal = total;
     });
   },
 });

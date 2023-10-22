@@ -10,6 +10,7 @@ import CustomerLayout from "../layouts/CustomerLayout";
 import CartPage from "../pages/CustomerPages/CartPage";
 import CheckOutPage from "../pages/CustomerPages/CheckOutPage";
 import PaymentPage from "../pages/CustomerPages/PaymentPage";
+import ShopPage from "../pages/CustomerPages/ShopPage";
 // Customer Dashboard
 import CustomerDashboard from "../layouts/CustomerDashboard";
 import CustomerOrdersPage from "../pages/CustomerPages/Dashboard/CustomerOrdersPage";
@@ -48,6 +49,7 @@ const Router = createBrowserRouter([
       { path: "/cart", element: <CartPage /> },
       { path: "/checkout", element: <CheckOutPage /> },
       { path: "/payment", element: <PaymentPage /> },
+      { path: "/shop", element: <ShopPage /> },
     ],
   },
   //   Customer Dashboard

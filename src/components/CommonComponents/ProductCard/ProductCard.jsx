@@ -19,7 +19,11 @@ import ProductModalView from "../../PageComponents/CommonPages/ProductCard/Produ
 
 import { addToCart } from "../../../Redux/Slices/cartSlice";
 
+import { toast, ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.userSlice);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -35,7 +39,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <>
-      <Box>
+      <Box style={{ cursor: "pointer" }}>
         <Box
           sx={{
             width: "100%",
@@ -102,6 +106,10 @@ const ProductCard = ({ product }) => {
                   src="/images/watch.png"
                   alt=""
                   style={{ height: "40%", width: "90%" }}
+                  onClick={() => {
+                    console.log("clicked");
+                    navigate(`/product/${product._id}`);
+                  }}
                 />
               </Box>
 
@@ -135,7 +143,11 @@ const ProductCard = ({ product }) => {
                               productId: product._id,
                               userId: user._id,
                             })
-                          );
+                          ).then((res) => {
+                            if (res.meta.requestStatus === "fulfilled") {
+                              toast.success("Product added to the cart");
+                            }
+                          });
                         }}
                       >
                         <AddIcon fontSize="small" />

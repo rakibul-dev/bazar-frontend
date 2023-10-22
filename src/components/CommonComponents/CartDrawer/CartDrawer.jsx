@@ -6,6 +6,7 @@ import { Grid, Typography, Stack, Fab, Box, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartItems } from "../../../Redux/Slices/cartSlice";
+import { useNavigate } from "react-router-dom";
 // import component 👇
 import Drawer from "react-modern-drawer";
 
@@ -13,8 +14,9 @@ import Drawer from "react-modern-drawer";
 import "react-modern-drawer/dist/index.css";
 
 const CartDrawer = ({ toggleDrawer, isOpen }) => {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.userSlice);
-  const { cart } = useSelector((state) => state.cartSlice);
+  const { cart, cartTotal } = useSelector((state) => state.cartSlice);
   const dispatch = useDispatch();
 
   const drawerWidth = 350;
@@ -100,10 +102,16 @@ const CartDrawer = ({ toggleDrawer, isOpen }) => {
           >
             <Stack width="100%" gap={1} paddingRight={2} paddingLeft={2}>
               <Button variant="contained" fullWidth>
-                Checkout now $670.00
+                Checkout now {cartTotal ? "$" + cartTotal : null}
               </Button>
-              <Button variant="outlined" fullWidth>
-                Checkout now $670.00
+              <Button
+                variant="outlined"
+                fullWidth
+                onClick={() => {
+                  navigate("/cart");
+                }}
+              >
+                View cart
               </Button>
             </Stack>
           </Box>
