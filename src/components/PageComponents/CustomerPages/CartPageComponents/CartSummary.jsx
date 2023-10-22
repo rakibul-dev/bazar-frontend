@@ -10,7 +10,12 @@ import {
 } from "@mui/material";
 import React from "react";
 
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const CartSummary = () => {
+  const navigate = useNavigate();
+  const { cartTotal } = useSelector((state) => state.cartSlice);
+
   return (
     <>
       <Box height="50%" width="100%">
@@ -34,7 +39,7 @@ const CartSummary = () => {
             >
               <Typography>Total:</Typography>
               <Typography variant="h6" fontWeight="bold">
-                $460.00
+                ${cartTotal}
               </Typography>
             </Box>
             <Box>
@@ -43,14 +48,25 @@ const CartSummary = () => {
                   Additional Comments
                 </Typography>
                 <Chip
-                  label="New"
+                  label="Note"
                   variant="contained"
                   color="primary"
                   size="small"
                 />
               </Stack>
             </Box>
+          </Box>
 
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+              justifyContent: "center",
+              padding: "20px",
+            }}
+            gap={2}
+          >
             <Box>
               <TextField
                 color="primary"
@@ -60,18 +76,26 @@ const CartSummary = () => {
                 multiline
               ></TextField>
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "column" }} gap={2}>
-              <TextField
-                id="outlined-basic"
-                label="Voucher"
-                variant="outlined"
-                fullWidth
-                size="small"
-              />
-              <Button variant="contained" color="primary" fullWidth>
-                Voucher
-              </Button>
-            </Box>
+            <TextField
+              id="outlined-basic"
+              label="Voucher"
+              variant="outlined"
+              fullWidth
+              size="small"
+            />
+            <Button variant="outlined" color="primary" fullWidth>
+              Voucher
+            </Button>
+            <Button
+              variant="contained"
+              color="primary"
+              fullWidth
+              onClick={() => {
+                navigate("/checkout");
+              }}
+            >
+              Checkout now
+            </Button>
           </Box>
         </Paper>
       </Box>
