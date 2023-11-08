@@ -13,8 +13,14 @@ import React from "react";
 import PaymentType from "../../components/PageComponents/CustomerPages/PaymentPageComponents/PaymentType";
 import TotalPricing from "../../components/PageComponents/CustomerPages/CheckoutPageComponets/TotalPricing";
 import { useState } from "react";
-
+import { useDispatch, useSelector } from "react-redux";
+import { removeAllCartItems } from "../../Redux/Slices/cartSlice";
+import { createOrder } from "../../Redux/Slices/orderSlice";
+import { toast } from "react-toastify";
 const PaymentPage = () => {
+  const { user } = useSelector((state) => state.userSlice);
+  const { cart, cartTotal } = useSelector((state) => state.cartSlice);
+  const dispatch = useDispatch();
   const [value, setValue] = useState();
   return (
     <div>
@@ -55,7 +61,23 @@ const PaymentPage = () => {
             </Paper>
             {value ? (
               <Box sx={{ marginTop: "20px" }}>
-                <Button variant="contained">Order Now</Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    dispatch(
+                      createOrder({
+                        id: user._id,
+                        cartItems: cart,
+                        totalAmount: cartTotal,
+                      })
+                    ).then(() => {
+                      dispatch(removeAllCartItems());
+                      toast.success("Orderd successfully");
+                    });
+                  }}
+                >
+                  Order Now
+                </Button>
               </Box>
             ) : null}
           </Grid>
