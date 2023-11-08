@@ -92,7 +92,11 @@ function calculateCartTotal(cart) {
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    removeAllCartItems: (state, action) => {
+      state.cart.splice(0, state.cart.length);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getCartItems.fulfilled, (state, action) => {
       state.cart = action.payload;
@@ -147,5 +151,5 @@ export const cartSlice = createSlice({
   },
 });
 
-export const {} = cartSlice.actions;
+export const { removeAllCartItems } = cartSlice.actions;
 export default cartSlice.reducer;
