@@ -30,7 +30,7 @@ const CartDrawer = ({ toggleDrawer, isOpen }) => {
       dispatch(getCartItems(user._id));
     }
   }, []);
-  console.log({ user: user._id });
+//   console.log({ user: user._id });
 
   return (
     <>
