@@ -37,6 +37,7 @@ import AdminOrderDetailsPage from "../pages/AdminPages/Orders/AdminOrderDetailsP
 // Auth pages
 import CustomerLoginPage from "../pages/AuthPages/CustomerLoginPage";
 import CustomerRegisterPage from "../pages/AuthPages/CustomerRegisterPage";
+import CustomerProtectedRoute from "./CustomerProtectedRoute";
 
 const Router = createBrowserRouter([
   // Customer
@@ -46,7 +47,14 @@ const Router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/product/:id", element: <ProductDetails /> },
-      { path: "/cart", element: <CartPage /> },
+      {
+        path: "/cart",
+        element: (
+          <CustomerProtectedRoute>
+            <CartPage />
+          </CustomerProtectedRoute>
+        ),
+      },
       { path: "/checkout", element: <CheckOutPage /> },
       { path: "/payment", element: <PaymentPage /> },
       { path: "/shop", element: <ShopPage /> },
