@@ -5,22 +5,22 @@ import { useSelector } from "react-redux";
 const MainComponent = () => {
   const { user } = useSelector((state) => state.userSlice);
   return (
-    <div>
-      {user._id ? (
-        <RouterProvider router={Router} />
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-          }}
-        >
-          <InfinitySpin width="200" color="#d23f57" />
-        </div>
-      )}
-    </div>
+    // <div>
+    //   {user._id ? (
+    <RouterProvider router={Router} />
+    //   ) : (
+    //     <div
+    //       style={{
+    //         display: "flex",
+    //         justifyContent: "center",
+    //         alignItems: "center",
+    //         height: "100vh",
+    //       }}
+    //     >
+    //       <InfinitySpin width="200" color="#d23f57" />
+    //     </div>
+    //   )}
+    // </div>
   );
 };
 

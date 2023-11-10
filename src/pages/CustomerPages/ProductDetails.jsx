@@ -69,17 +69,16 @@ const ProductDetails = () => {
     const res = await axios.get(`http://localhost:5000/products/${id}`);
     setProductDetails(res.data);
 
-    console.log({ res });
-    console.log({ productDetails });
+    console.log(res);
   };
-
+  console.log({ productDetails });
   useEffect(() => {
     getProductDetails();
   }, []);
 
   return (
     <div>
-      {productDetails ? (
+      {productDetails?._id ? (
         <>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Box
@@ -99,10 +98,10 @@ const ProductDetails = () => {
                 <Grid item md={6}>
                   <Box>
                     <Typography variant="h4" fontWeight="bold">
-                      {productDetails?.name}
+                      {productDetails.name}
                     </Typography>
                     <Typography variant="p">
-                      Brand: {productDetails.brand.name}
+                      Brand: {productDetails.category.name}
                     </Typography>
                     {/* <Box
                       sx={{
